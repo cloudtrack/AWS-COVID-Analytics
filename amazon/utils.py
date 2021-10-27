@@ -27,6 +27,9 @@ class AWS:
         self.session = boto3.Session(access_key, secret_key)
 
     '''
+    description:
+    Upload local file to s3 bucket. Credentials must be set earlier
+
     args:
     - access_key: access key to personnal account
     - secret_key: secret key for the access key
@@ -53,6 +56,7 @@ class AWS:
 
     '''
     description: create and run a glue job
+
     args:
     - job_name: job's name
     - role_arn: role of arn
@@ -61,7 +65,7 @@ class AWS:
     '''
     def create_run_glue_job(self, job_name, role_arn, etlType, scriptLocation ):
         glue = session.client('glue')
-        response = glue.create_job(Name=job_name,
+        glue.create_job(Name=job_name,
                                 Role=role_arn,
                                 Command={
                                     'Name': 'glueetl' if etlType==0 else 'pythonshell' if etlType == 1 else 'gluestreaming',
@@ -71,6 +75,14 @@ class AWS:
         glue.start_job_run(JobName = job_name)
 
 
+    '''
+    description: create and run a glue crawler to create metadata
+
+    args:
+    - crawler_name: crawler's name
+    - role_arn: arn of role
+    - target_path: S3 file/folder to crawl
+    '''
     def create_run_glue_crawler(self, crawler_name, role_arn, target_path):
         crawler = session.client('crawler')
         crawler.create_crawler(Name=crawler_name,
@@ -90,8 +102,93 @@ class AWS:
             obj = crawler.get_crawler(crawler_name)
 
 
+    '''
+    description: execute SQL query and get results
+
+    args:
+    - script: SQL script in string
+
+    return:
+    result of SQL query
+    '''
     def execute_query(self, script):
         athena = session.client('athena')
         response = athena.start_query_execution(QueryString = script)
 
+        # TODO
+
         return response
+
+    '''
+    description:
+        create estimater
+
+    args:
+        - role_arn: arn of role
+        - model: type of model (LinearLearner, XGBoost...)
+        - instance_type: type of instance used for running the model
+
+    return:
+        estimator
+    '''
+    def create_estimator(self, role_arn, model, instance_type):
+        # https://docs.aws.amazon.com/sagemaker/latest/dg/ex1-train-model.html
+        pass
+
+    '''
+    description:
+        set the parameters of the estimator
+
+    args:
+        - estimator: estimator instance
+        - params: dictionary of parameters to set the estimator to
+
+    return:
+        estimator with parameters set
+    '''
+    def set_est_parameters(e
+        # TODO
+        pass
+
+    '''
+    description:
+        train model
+
+    args:
+        - training_data_path: path to training data
+        - validation_data_path: path to validation data
+
+    return:
+        (trained model, link to training report)
+    '''
+    def train_model(self, estimator, training_data_path, validation_data_path):
+        pass
+
+    '''
+    description:
+        deploy model for using the model for predictions
+
+    args:
+        - model: estimator
+        - serializer_type: type of input file for the predicitons (csv, json...)
+        - instance_type: type of instance the deployed model will run on
+
+    return:
+        predicator used for predictions
+    '''
+    def deploy_model(self, estimator, serializer_type, instance_type):
+        pass
+
+    '''
+    description:
+        use model for predictions
+
+    args:
+        - predicator: predicator instance
+        - data: testing data
+
+    return:
+        prediction results in csv
+    '''
+    def predict(self, predicator, data):
+        pass
