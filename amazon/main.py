@@ -1,9 +1,8 @@
 import utils
 import boto3
 
-ACCESS_KEY = 'AKIAYUWSW2LQNOFD3W5H'
-SECRET_KEY = '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'
-
+ACCESS_KEY = ''
+SECRET_KEY = ''
 # iam = boto3.resource('iam')
 # user = iam.User('hyunsoo')
 # iter = (user.attached_policies.all())
