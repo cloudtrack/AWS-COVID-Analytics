@@ -146,7 +146,7 @@ class AWS:
     return:
         estimator with parameters set
     '''
-    def set_est_parameters(e
+    def set_est_parameters(e):
         # TODO
         pass
 
@@ -161,8 +161,11 @@ class AWS:
     return:
         (trained model, link to training report)
     '''
+
     def train_model(self, estimator, training_data_path, validation_data_path):
         pass
+
+
 
     '''
     description:
