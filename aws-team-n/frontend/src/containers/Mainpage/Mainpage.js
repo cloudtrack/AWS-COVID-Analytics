@@ -9,11 +9,7 @@ class MainPage extends Component{
   render(){
     return (
       <div className="Mainpage">
-        <Tabs>
-          <AirPollution label="코로나와 대기오염도"/>
-          <StockMarket label="stock-market"/>
-          <Unemployment label="unemployment"/>
-        </Tabs>
+        MAIN
       </div>
     );
   }

@@ -4,21 +4,9 @@
     justify-content: space-around;
     background-color: grey;
 }
-.TabBar{
-    display: flex;
-    flex-direction: row;
-    background-color: red;
-    width: max-content;
-    /* justify-content: space-between; */
-    /* justify-content: space-around;
-    justify-content: space-evenly; */
+.active{
+    background-color: darkgrey;
 }
-
-NavLink{
-    text-decoration: none;
-    color: red
-}
-
 li {
     list-style: none;
     width: 100%;
@@ -28,6 +16,7 @@ li a{
     text-decoration: none;
     list-style: none;
     padding: 15px;
+    color: black
 }
 li a:hover, a:focus{
     background-color: darkgray;
