@@ -1,7 +1,5 @@
-import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter, Route, Routes, Link, Navigate, Redirect } from 'react-router-dom';
-// import {withRouter} from 'react-router'
+import { BrowserRouter, Route, Routes, Navigate} from 'react-router-dom';
 
 import MainPage from './containers/Mainpage/Mainpage';
 import AirPollution from './containers/AirPollution/AirPollution';
