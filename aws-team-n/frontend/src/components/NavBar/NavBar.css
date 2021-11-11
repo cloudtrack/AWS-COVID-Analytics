@@ -1,0 +1,34 @@
+.Tabs{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: grey;
+}
+.TabBar{
+    display: flex;
+    flex-direction: row;
+    background-color: red;
+    width: max-content;
+    /* justify-content: space-between; */
+    /* justify-content: space-around;
+    justify-content: space-evenly; */
+}
+
+NavLink{
+    text-decoration: none;
+    color: red
+}
+
+li {
+    list-style: none;
+    width: 100%;
+}
+li a{
+    display: block;
+    text-decoration: none;
+    list-style: none;
+    padding: 15px;
+}
+li a:hover, a:focus{
+    background-color: darkgray;
+}
