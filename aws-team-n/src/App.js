@@ -1,11 +1,12 @@
 import "./App.css";
+import { Unemployment } from "./components/Unemployment";
 
 function App() {
-    return (
-        <div className="App">
-            <h1>Hello world!</h1>
-        </div>
-    );
+  return (
+    <div className="App">
+      <Unemployment />
+    </div>
+  );
 }
 
 export default App;
