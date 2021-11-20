@@ -1,3 +1,1 @@
-import { LineChart } from "./Line";
-
-export * from LineChart
+export * from "./LineChart";
