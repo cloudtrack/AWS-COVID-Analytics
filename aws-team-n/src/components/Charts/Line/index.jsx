@@ -7,12 +7,12 @@ import axios from "axios";
 const BASE_URL =
   "https://vgexf4h4u8.execute-api.ap-northeast-2.amazonaws.com/beta/unemployment_rate";
 
-const headers = {
-  "Access-Control-Allow-Origin": "*",
-  "Content-Type": "application/json",
-  "Access-Control-Allow-Headers": "Content-Type",
-  "Access-Control-Allow-Credentials": true,
-};
+// const headers = {
+//   "Access-Control-Allow-Origin": "*",
+//   "Content-Type": "application/json",
+//   "Access-Control-Allow-Headers": "Content-Type",
+//   "Access-Control-Allow-Credentials": true,
+// };
 
 /**
  * @returns Stacked Line Chart
@@ -63,6 +63,7 @@ export const LineChart = () => {
 
   const secondaryOptions = useLineChart({
     chartData: getSecondaryChartData(fetchedData),
+    title: `${selectedLocation} Unemployment Rate`,
   });
 
   return (
