@@ -2,16 +2,13 @@ const ONE_YEAR = 365 * 24 * 60 * 60 * 1000;
 const START_DATE = 1577836800; // 2020/01/01
 const NUM = 50;
 
-const dates = [...Array(NUM)].map((item, i) => START_DATE + i * ONE_YEAR);
-
 /**
  * Generate random test data with n points between range 0~50
  */
 export const generateRandomData = () => {
+  const dates = [...Array(NUM)].map((item, i) => START_DATE + i * ONE_YEAR);
   return [...Array(NUM)].map((item, i) => [dates[i], Math.random() * NUM]);
 };
-
-export const data = generateRandomData();
 
 /**
  * Replace Quarter number with first month of respective period.
@@ -43,13 +40,6 @@ const getTimestampFromDate = (dateStr) => {
 };
 
 export const parseChartData = (data) => {
-  // const timestamp1 = getTimestampFromDate("2000-Q1"); //data[0].data[0].time);
-  // const timestamp2 = getTimestampFromDate("2000-01");
-  // const value = data[0].data[0].value;
-  // console.log([timestamp1, value]);
-  // console.log("2000-Q1: " + new Date(timestamp1));
-  // console.log("2000-Q1: " + new Date(timestamp2));
-
   return data.map((item) => {
     const chartData = item.data.map((dataItem) => {
       const timestamp = getTimestampFromDate(dataItem.time);

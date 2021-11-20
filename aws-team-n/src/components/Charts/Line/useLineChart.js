@@ -3,12 +3,28 @@ import { parseChartData } from "./util";
 /**
  * @returns config options for Highcharts Line Chart component
  */
-export const useLineChart = ({ chartData, title = "", onLegendItemClick }) => {
+export const useLineChart = ({
+  chartData,
+  onLegendItemClick,
+  plotLines = [],
+  showLabels = false,
+  title = "",
+}) => {
   const series = parseChartData(chartData);
 
   const handleMouseOver = (point) => {
     // callback function
   };
+
+  const plotLineArr = plotLines.map((item) => {
+    return {
+      color: "orange",
+      width: 2,
+      label: showLabels ? { text: item.name } : {},
+      value: Date.parse(item.date),
+      zIndex: 1,
+    };
+  });
 
   return {
     title: {
@@ -20,7 +36,7 @@ export const useLineChart = ({ chartData, title = "", onLegendItemClick }) => {
           legendItemClick: function () {
             console.log(this.name);
             if (onLegendItemClick) onLegendItemClick(this.name);
-            //return false; // to cancel default action
+            return false; // to cancel default action
           },
         },
         showInLegend: true,
@@ -54,27 +70,7 @@ export const useLineChart = ({ chartData, title = "", onLegendItemClick }) => {
           });
         },
       },
-
-      //   plotBands: [
-      //     {
-      //       label: {
-      //         text: "Recession 1",
-      //         align: "center",
-      //       },
-      //       color: "lightyellow",
-      //       from: dates[1],
-      //       to: dates[2],
-      //     },
-      //     {
-      //       label: {
-      //         text: "Recession 2",
-      //         align: "center",
-      //       },
-      //       color: "lightyellow",
-      //       from: dates[dates.length - 10],
-      //       to: dates[dates.length - 5],
-      //     },
-      //   ],
+      plotLines: plotLineArr,
     },
     series: series,
   };

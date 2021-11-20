@@ -4,9 +4,11 @@ import HighchartsReact from "highcharts-react-official";
 import { useLineChart } from "./useLineChart";
 import axios from "axios";
 
-const BASE_URL =
+const UNEMPLOYMENT_URL =
   "https://vgexf4h4u8.execute-api.ap-northeast-2.amazonaws.com/beta/unemployment_rate";
 
+const MAJOR_EVENTS_URL =
+  "https://gv2pn6qqx6.execute-api.ap-northeast-2.amazonaws.com/beta/major_events";
 // const headers = {
 //   "Access-Control-Allow-Origin": "*",
 //   "Content-Type": "application/json",
@@ -19,12 +21,19 @@ const BASE_URL =
  */
 export const LineChart = () => {
   const [fetchedData, setFetchedData] = useState([]);
+  const [majorEvents, setMajorEvents] = useState([]);
+  // whether chart finished loading
   const [loaded, setLoaded] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState("OECD");
 
   useEffect(() => {
+    fetchChartData();
+    fetchMajorEvents();
+  }, []);
+
+  const fetchChartData = () => {
     axios
-      .get(`${BASE_URL}`)
+      .get(`${UNEMPLOYMENT_URL}`)
       .then((response) => {
         console.log("Successfully fetched unemployment chart data!\n");
         return response.data;
@@ -39,7 +48,23 @@ export const LineChart = () => {
       .finally(() => {
         setLoaded(true);
       });
-  }, []);
+  };
+
+  const fetchMajorEvents = () => {
+    axios
+      .get(`${MAJOR_EVENTS_URL}`)
+      .then((response) => {
+        console.log("Successfully fetched major events data!\n");
+        return response.data;
+      })
+      .then(({ body }) => {
+        const data = body;
+        setMajorEvents(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const getSecondaryChartData = () => {
     if (fetchedData.length > 0) {
@@ -64,6 +89,7 @@ export const LineChart = () => {
   const secondaryOptions = useLineChart({
     chartData: getSecondaryChartData(fetchedData),
     title: `${selectedLocation} Unemployment Rate`,
+    plotLines: majorEvents,
   });
 
   return (
