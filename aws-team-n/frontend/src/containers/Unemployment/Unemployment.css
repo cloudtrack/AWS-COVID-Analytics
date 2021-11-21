@@ -1,0 +1,12 @@
+.row-container {
+  display: flex;
+  overflow: hidden;
+}
+
+.chart {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: stretch;
+  overflow: hidden;
+}

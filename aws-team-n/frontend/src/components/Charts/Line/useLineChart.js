@@ -10,7 +10,7 @@ export const useLineChart = ({
   showLabels = false,
   title = "",
 }) => {
-  const series = parseChartData(chartData);
+  const seriesData = parseChartData(chartData);
 
   const handleMouseOver = (point) => {
     // callback function
@@ -27,6 +27,10 @@ export const useLineChart = ({
   });
 
   return {
+    chart: {
+      // height: '100%',
+      // width: "100%",
+    },
     title: {
       text: title,
     },
@@ -46,7 +50,7 @@ export const useLineChart = ({
 
         point: {
           events: {
-            mouseOver: (function (self) {
+            mouseDown: (function (self) {
               return function () {
                 const point = {
                   x: this.x,
@@ -72,6 +76,6 @@ export const useLineChart = ({
       },
       plotLines: plotLineArr,
     },
-    series: series,
+    series: seriesData,
   };
 };

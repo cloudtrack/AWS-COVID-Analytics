@@ -49,6 +49,9 @@ export const parseChartData = (data) => {
     return {
       name: item.location,
       data: chartData,
+      type: "area",
+      lineWidth: 2,
+      fillColor: "transparent",
     };
   });
 };
