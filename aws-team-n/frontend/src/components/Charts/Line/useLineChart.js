@@ -1,4 +1,4 @@
-import { parseChartData } from "./utils";
+import { formatDate, parseChartData, parsePlotLines } from "../utils";
 
 /**
  * Hook to generate line chart options from given chart data.
@@ -9,41 +9,23 @@ export const useLineChart = ({
   chartData,
   onLegendItemClick,
   plotLines = [],
-  showLabels = false,
   title = "",
 }) => {
   const seriesData = parseChartData(chartData);
-
-  const formatDate = (timestamp) => {
-    return new Date(timestamp).toLocaleDateString("en-US", {
-      month: "short",
-      year: "numeric",
-    });
-  };
+  const plotLineData = parsePlotLines(plotLines);
 
   const onClick = (e) => {
     // callback function
   };
 
-  const plotLineArr = plotLines.map((item) => {
-    return {
-      color: "orange",
-      width: 2,
-      label: showLabels ? { text: item.name } : {},
-      value: Date.parse(item.date),
-      zIndex: 1,
-    };
-  });
-
   return {
     title: {
       text: title,
     },
-
     plotOptions: {
-      area: {
+      line: {
         events: {
-          legendItemClick: function (event) {
+          legendItemClick: function (e) {
             console.log(this.name);
             if (onLegendItemClick) onLegendItemClick(this.name);
             return false; // to cancel default action
@@ -52,7 +34,6 @@ export const useLineChart = ({
         showInLegend: true,
       },
       series: {
-        stacking: "normal",
         point: {
           events: {
             click: function (e) {
@@ -60,6 +41,9 @@ export const useLineChart = ({
               console.log("click:");
               console.log(e.point);
               onClick(e);
+            },
+            mouseOver: function (e) {
+              // on mouse over
             },
           },
         },
@@ -72,7 +56,7 @@ export const useLineChart = ({
           return formatDate(this.value);
         },
       },
-      plotLines: plotLineArr,
+      plotLines: plotLineData,
     },
     series: seriesData,
   };

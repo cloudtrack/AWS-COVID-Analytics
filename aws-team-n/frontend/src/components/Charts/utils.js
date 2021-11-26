@@ -3,6 +3,17 @@ const START_DATE = 1577836800; // 2020/01/01
 const NUM = 50;
 
 /**
+ * @param {*} timestamp
+ * @returns Date string in "Month YYY" format
+ */
+export const formatDate = (timestamp) => {
+  return new Date(timestamp).toLocaleDateString("en-US", {
+    month: "short",
+    year: "numeric",
+  });
+};
+
+/**
  * Generate random test data with n points between range 0~50
  */
 export const generateRandomData = () => {
@@ -39,6 +50,9 @@ const getTimestampFromDate = (dateStr) => {
   return Date.parse(cleanedStr);
 };
 
+/**
+ * Generate series options array from given raw chart data
+ */
 export const parseChartData = (data) => {
   return data.map((item) => {
     const chartData = item.data.map((dataItem) => {
@@ -49,9 +63,52 @@ export const parseChartData = (data) => {
     return {
       name: item.location,
       data: chartData,
-      type: "area",
+      // type: "area",
       lineWidth: 2,
       fillColor: "transparent",
+    };
+  });
+};
+
+/**
+ * Generate plotlines options array from given plotline data
+ */
+export const parsePlotLines = (plotLines) => {
+  return plotLines.map((item) => {
+    const timestamp = Date.parse(item.date);
+    return {
+      ////
+      color: "orange",
+      value: timestamp,
+      width: 2,
+      dashStyle: "solid",
+      label: {
+        text: `${item.name}<br/>${formatDate(timestamp)}`,
+        x: 0,
+        y: -10,
+        useHTML: true,
+        textAlign: "center",
+        rotation: 0,
+        style: {
+          backgroundColor: "grey",
+          color: "white",
+          padding: "4px 4px 4px 4px",
+          fontWeight: "bold",
+          borderRadius: "4px 4px 4px 4px",
+          textAlign: "center",
+          display: "none", // hide initially
+        },
+      },
+      events: {
+        // only display labels on mouse hover
+        mouseover: function (e) {
+          this.label.element.style.display = "block";
+        },
+        mouseout: function (e) {
+          this.label.element.style.display = "none";
+        },
+      },
+      zIndex: 1,
     };
   });
 };

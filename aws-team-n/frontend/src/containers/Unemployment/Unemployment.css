@@ -1,12 +1,12 @@
 .row-container {
-  display: flex;
+  /* display: flex; */
   overflow: hidden;
 }
 
 .chart {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: stretch;
+  /* display: flex;
+  flex-direction: row; */
+  /* flex-wrap: wrap; */
+  /* align-items: stretch; */
   overflow: hidden;
 }
