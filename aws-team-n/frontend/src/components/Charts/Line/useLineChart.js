@@ -1,6 +1,8 @@
-import { parseChartData } from "./util";
+import { parseChartData } from "./utils";
 
 /**
+ * Hook to generate line chart options from given chart data.
+ *
  * @returns config options for Highcharts Line Chart component
  */
 export const useLineChart = ({
@@ -12,7 +14,14 @@ export const useLineChart = ({
 }) => {
   const seriesData = parseChartData(chartData);
 
-  const handleMouseOver = (point) => {
+  const formatDate = (timestamp) => {
+    return new Date(timestamp).toLocaleDateString("en-US", {
+      month: "short",
+      year: "numeric",
+    });
+  };
+
+  const onClick = (e) => {
     // callback function
   };
 
@@ -27,17 +36,14 @@ export const useLineChart = ({
   });
 
   return {
-    chart: {
-      // height: '100%',
-      // width: "100%",
-    },
     title: {
       text: title,
     },
+
     plotOptions: {
-      line: {
+      area: {
         events: {
-          legendItemClick: function () {
+          legendItemClick: function (event) {
             console.log(this.name);
             if (onLegendItemClick) onLegendItemClick(this.name);
             return false; // to cancel default action
@@ -47,19 +53,14 @@ export const useLineChart = ({
       },
       series: {
         stacking: "normal",
-
         point: {
           events: {
-            mouseDown: (function (self) {
-              return function () {
-                const point = {
-                  x: this.x,
-                  y: this.y,
-                };
-                // callback
-                handleMouseOver(point);
-              };
-            })(this),
+            click: function (e) {
+              e.preventDefault();
+              console.log("click:");
+              console.log(e.point);
+              onClick(e);
+            },
           },
         },
       },
@@ -67,11 +68,8 @@ export const useLineChart = ({
     xAxis: {
       type: "datetime",
       labels: {
-        formatter: function () {
-          return new Date(this.value).toLocaleDateString("en-US", {
-            month: "short",
-            year: "numeric",
-          });
+        formatter: function (self) {
+          return formatDate(this.value);
         },
       },
       plotLines: plotLineArr,
