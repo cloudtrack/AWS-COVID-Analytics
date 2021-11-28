@@ -1,0 +1,45 @@
+.KospiSector{
+    margin: 50px;
+}
+.title{
+    margin-top: 30px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 800;
+}
+.contents{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.sectorgraph{
+    display: flex;
+    flex-direction: row;
+}
+.sector-overview-graph{
+    display: flex;
+    justify-content: space-between;
+}
+.buttons{
+    margin-top: 80px;
+    text-align: center;
+}
+.button{
+    margin: 5px 15px;
+    background-color: rgb(255, 205, 86);
+    cursor: pointer;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    letter-spacing: 0.6px;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    display: flex;
+    flex-direction: column;
+}
+.overview{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}

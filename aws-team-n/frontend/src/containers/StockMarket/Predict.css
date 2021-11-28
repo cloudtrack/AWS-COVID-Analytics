@@ -1,0 +1,15 @@
+.predict{
+    margin:50px;
+}
+.graph{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin: 20px 50px;
+    }    
+.korea{
+    margin: 0 20px;
+}
+.us{
+    margin: 0 20px;
+}
