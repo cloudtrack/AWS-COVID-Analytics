@@ -1,26 +1,53 @@
-/* eslint-disable  */
-
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import { Line } from "react-chartjs-2"
-import { getEurope } from "../../../store/StockMarketStore";
-
 
 const Europe = () => {
+    const [update, setUpdate] = useState(false)
 
-  const dispatch = useDispatch();
-  const update = false;
-  const xlabels = useSelector((state) => state.graph.date_europe);
-  const yUK = useSelector((state) => state.graph.uk);
-  const yItaly = useSelector((state) => state.graph.italy);
-  const ySwiss = useSelector((state) => state.graph.swiss);
-  const yGermany = useSelector((state) => state.graph.germany);
-  const yFrance = useSelector((state) => state.graph.france);
-  const yNetherlands = useSelector((state) => state.graph.netherlands);
-
-  useEffect(() => {
-    dispatch(getEurope());
-  },[false]);
+    const [xlabels, setXlabels] = useState([]);
+    const [yUK, setYUK] = useState([]);
+    const [yItaly, setYItaly] = useState([]);
+    const [ySwiss, setYSwiss] = useState([]);
+    const [yGermany, setYGermany] = useState([]);
+    const [yFrance, setYFrance] = useState([]);
+    const [yNetherlands, setYNetherlands] = useState([]);
+  
+    useEffect(() => {
+        fetch('http://127.0.0.1:5000/sm-graph1/europe')
+        .then(response => response.body)
+        .then(rb => {
+          const reader = rb.getReader();
+        
+          return new ReadableStream({
+            start(controller) {
+              function push() {
+                reader.read().then( ({done, value}) => {
+                  if (done) {
+                    controller.close();
+                    return;
+                  }
+                  controller.enqueue(value);
+                  push();
+                })
+              }
+              push();
+            }
+          });
+        })
+        .then(stream => {
+          return new Response(stream, { headers: { "Content-Type": "text/html" } }).text();
+        })
+        .then(result => {
+          const tojson = JSON.parse(result);
+          setXlabels(tojson['date']);
+          setYUK(tojson['uk']);
+          setYItaly(tojson['italy']);
+          setYSwiss(tojson['swiss']);
+          setYGermany(tojson['germany']);
+          setYFrance(tojson['france']);
+          setYNetherlands(tojson['netherlands']);
+        });
+      },[update]);
   
   return (
     <div>

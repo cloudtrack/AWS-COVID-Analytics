@@ -1,24 +1,51 @@
 /* eslint-disable  */
 
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import { Line } from "react-chartjs-2"
-import { getSAmerica } from "../../../store/StockMarketStore";
-
 
 const SAmerica = () => {
+    const [update, setUpdate] = useState(false)
 
-  const dispatch = useDispatch();
-  const update = false;
-  const xlabels = useSelector((state) => state.graph.date_southamerica);
-  const yPeru = useSelector((state) => state.graph.peru);
-  const yBrazil = useSelector((state) => state.graph.brazil);
-  const yChile = useSelector((state) => state.graph.chile);
-  const yArgentina = useSelector((state) => state.graph.argentina);
-
-  useEffect(() => {
-    dispatch(getSAmerica());
-  },[update]);
+    const [xlabels, setXlabels] = useState([]);
+    const [yPeru, setYPeru] = useState([]);
+    const [yBrazil, setYBrazil] = useState([]);
+    const [yChile, setYChile] = useState([]);
+    const [yArgentina, setYArgentina] = useState([]);
+  
+    useEffect(() => {
+        fetch('http://127.0.0.1:5000/sm-graph1/samerica')
+        .then(response => response.body)
+        .then(rb => {
+          const reader = rb.getReader();
+        
+          return new ReadableStream({
+            start(controller) {
+              function push() {
+                reader.read().then( ({done, value}) => {
+                  if (done) {
+                    controller.close();
+                    return;
+                  }
+                  controller.enqueue(value);
+                  push();
+                })
+              }
+              push();
+            }
+          });
+        })
+        .then(stream => {
+          return new Response(stream, { headers: { "Content-Type": "text/html" } }).text();
+        })
+        .then(result => {
+          const tojson = JSON.parse(result);
+          setXlabels(tojson['date']);
+          setYPeru(tojson['peru']);
+          setYBrazil(tojson['brazil']);
+          setYChile(tojson['chile']);
+          setYArgentina(tojson['argentina']);
+        });
+      },[update]);
   
   return (
     <div>

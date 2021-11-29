@@ -1,39 +1,77 @@
-/* eslint-disable  */
-
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Bar } from "react-chartjs-2"
-import { getSectorOverview } from "../../../store/StockMarketStore";
 import './SectorOverview.css'
 
 const Detail = () => {
-  const [sector, setSector] = useState('Choose Sector');
-  const [volume, setVolume] = useState([]);
-  const [price, setPrice] = useState([]);
-  const update = false;
+  const [update, setUpdate] = useState(false)
+  const [price, setPrice] = useState([])
+  const [volume, setVolume] = useState([])
+  const [sector, setSector] = useState("Choose Sector")
 
-  const dispatch = useDispatch();
-  const xlabels = useSelector((state) => state.graph.date_sector);
-  const yCMPrice = useSelector((state) => state.graph.CMPrice);
-  const yCMVolume = useSelector((state) => state.graph.CMVolume);
-  const yCDPrice = useSelector((state) => state.graph.CDPrice);
-  const yCDVolume = useSelector((state) => state.graph.CDVolume);
-  const yCSPrice = useSelector((state) => state.graph.CSPrice);
-  const yCSVolume = useSelector((state) => state.graph.CSVolume);
-  const yECPrice = useSelector((state) => state.graph.ECPrice);
-  const yECVolume = useSelector((state) => state.graph.ECVolume);
-  const yFPrice = useSelector((state) => state.graph.FPrice);
-  const yFVolume = useSelector((state) => state.graph.FVolume);
-  const yHIPrice = useSelector((state) => state.graph.HIPrice);
-  const yHIVolume = useSelector((state) => state.graph.HIVolume);
-  const yITPrice = useSelector((state) => state.graph.ITPrice);
-  const yITVolume = useSelector((state) => state.graph.ITVolume);
-  const ySMPrice = useSelector((state) => state.graph.SMPrice);
-  const ySMVolume = useSelector((state) => state.graph.SMVolume);
+  const [xlabels, setXlabels] = useState([]);
+  const [yCDPrice, setYCDPrice] = useState([]);
+  const [yCMPrice, setYCMPrice] = useState([]);
+  const [yCSPrice, setYCSPrice] = useState([]);
+  const [yECPrice, setYECPrice] = useState([]);
+  const [yFPrice, setYFPrice] = useState([]);
+  const [yHIPrice, setYHIPrice] = useState([]);
+  const [yITPrice, setYITPrice] = useState([]);
+  const [ySMPrice, setYSMPrice] = useState([]);
+  const [yCDVolume, setYCDVolume] = useState([]);
+  const [yCMVolume, setYCMVolume] = useState([]);
+  const [yCSVolume, setYCSVolume] = useState([]);
+  const [yECVolume, setYECVolume] = useState([]);
+  const [yFVolume, setYFVolume] = useState([]);
+  const [yHIVolume, setYHIVolume] = useState([]);
+  const [yITVolume, setYITVolume] = useState([]);
+  const [ySMVolume, setYSMVolume] = useState([]);
 
   useEffect(() => {
-    dispatch(getSectorOverview());
-  }, [update]);
+      fetch('http://127.0.0.1:5000/sm-graph4/sectordetail')
+      .then(response => response.body)
+      .then(rb => {
+        const reader = rb.getReader();
+      
+        return new ReadableStream({
+          start(controller) {
+            function push() {
+              reader.read().then( ({done, value}) => {
+                if (done) {
+                  controller.close();
+                  return;
+                }
+                controller.enqueue(value);
+                push();
+              })
+            }
+            push();
+          }
+        });
+      })
+      .then(stream => {
+        return new Response(stream, { headers: { "Content-Type": "text/html" } }).text();
+      })
+      .then(result => {
+        const tojson = JSON.parse(result);
+        setXlabels(tojson['date']);
+        setYCMPrice(tojson['cmprice']);
+        setYCDPrice(tojson['cdprice']);
+        setYCSPrice(tojson['csprice']);
+        setYECPrice(tojson['ecprice']);
+        setYFPrice(tojson['fprice']);
+        setYHIPrice(tojson['hiprice']);
+        setYITPrice(tojson['itprice']);
+        setYSMPrice(tojson['smprice']);
+        setYCMVolume(tojson['cmvolume']);
+        setYCDVolume(tojson['cdvolume']);
+        setYCSVolume(tojson['csvolume']);
+        setYECVolume(tojson['ecvolume']);
+        setYFVolume(tojson['fvolume']);
+        setYHIVolume(tojson['hivolume']);
+        setYITVolume(tojson['itvolume']);
+        setYSMVolume(tojson['smvolume']);
+      });
+    },[update]);
   
   const handleClick = (num) => {
     switch (num) {

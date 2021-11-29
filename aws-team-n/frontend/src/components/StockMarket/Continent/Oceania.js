@@ -1,23 +1,47 @@
 /* eslint-disable  */
 
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import { Line } from "react-chartjs-2"
-import { getOceania } from "../../../store/StockMarketStore";
-
 
 const Oceania = () => {
+    const [update, setUpdate] = useState(false)
 
-  const dispatch = useDispatch();
-  const update = false;
-  const xlabels = useSelector((state) => state.graph.date_oceania);
-  const yNewZealand = useSelector((state) => state.graph.newzealand);
-  const yAustralia = useSelector((state) => state.graph.australia);
-
-  useEffect(() => {
-    dispatch(getOceania());
-  },[update]);
+    const [xlabels, setXlabels] = useState([]);
+    const [yAustralia, setYAustralia] = useState([]);
+    const [yNewZealand, setYNewZealand] = useState([]);
   
+    useEffect(() => {
+        fetch('http://127.0.0.1:5000/sm-graph1/oceania')
+        .then(response => response.body)
+        .then(rb => {
+          const reader = rb.getReader();
+        
+          return new ReadableStream({
+            start(controller) {
+              function push() {
+                reader.read().then( ({done, value}) => {
+                  if (done) {
+                    controller.close();
+                    return;
+                  }
+                  controller.enqueue(value);
+                  push();
+                })
+              }
+              push();
+            }
+          });
+        })
+        .then(stream => {
+          return new Response(stream, { headers: { "Content-Type": "text/html" } }).text();
+        })
+        .then(result => {
+          const tojson = JSON.parse(result);
+          setXlabels(tojson['date']);
+          setYAustralia(tojson['australia']);
+          setYNewZealand(tojson['newzealand']);
+        });
+      },[update]);
 
   return (
     <div>

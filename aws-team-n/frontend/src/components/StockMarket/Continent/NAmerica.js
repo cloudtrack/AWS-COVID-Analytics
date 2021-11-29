@@ -1,23 +1,49 @@
 /* eslint-disable  */
 
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Line } from "react-chartjs-2"
-import { getNAmerica } from "../../../store/StockMarketStore";
-
 
 const NAmerica = () => {
-  const dispatch = useDispatch();
-  const update = false;
-  const xlabels = useSelector((state) => state.graph.date_northamerica);
-  const yUSA = useSelector((state) => state.graph.usa);
-  const yCanada = useSelector((state) => state.graph.canada);
-  const yMexico = useSelector((state) => state.graph.mexico);
+    const [update, setUpdate] = useState(false)
 
-  useEffect(() => {
-    dispatch(getNAmerica());
-  },[update]);
+    const [xlabels, setXlabels] = useState([]);
+    const [yUSA, setYUSA] = useState([]);
+    const [yCanada, setYCanada] = useState([]);
+    const [yMexico, setYMexico] = useState([]);
   
+    useEffect(() => {
+        fetch('http://127.0.0.1:5000/sm-graph1/namerica')
+        .then(response => response.body)
+        .then(rb => {
+          const reader = rb.getReader();
+        
+          return new ReadableStream({
+            start(controller) {
+              function push() {
+                reader.read().then( ({done, value}) => {
+                  if (done) {
+                    controller.close();
+                    return;
+                  }
+                  controller.enqueue(value);
+                  push();
+                })
+              }
+              push();
+            }
+          });
+        })
+        .then(stream => {
+          return new Response(stream, { headers: { "Content-Type": "text/html" } }).text();
+        })
+        .then(result => {
+          const tojson = JSON.parse(result);
+          setXlabels(tojson['date']);
+          setYUSA(tojson['usa']);
+          setYCanada(tojson['canada']);
+          setYMexico(tojson['mexico']);
+        });
+      },[update]);
 
   return (
     <div>

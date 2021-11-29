@@ -1,25 +1,53 @@
 /* eslint-disable  */
 
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import { Line } from "react-chartjs-2"
-import { getAsia } from "../../../store/StockMarketStore";
-
 
 const Asia = () => {
-    const dispatch = useDispatch();
+    const [update, setUpdate] = useState(false)
 
-    const update = false;
-    const xlabels = useSelector((state) => state.graph.date_asia);
-    const yChina = useSelector((state) => state.graph.china);
-    const yKorea = useSelector((state) => state.graph.korea);
-    const yHongKong = useSelector((state) => state.graph.hongkong);
-    const yIndia = useSelector((state) => state.graph.india);
-    const yJapan = useSelector((state) => state.graph.japan);
+    const [xlabels, setXlabels] = useState([]);
+    const [yChina, setYChina] = useState([]);
+    const [yKorea, setYKorea] = useState([]);
+    const [yHongKong, setYHongKong] = useState([]);
+    const [yIndia, setYIndia] = useState([]);
+    const [yJapan, setYJapan] = useState([]);
   
     useEffect(() => {
-      dispatch(getAsia());
-    },[update]);
+        fetch('http://127.0.0.1:5000/sm-graph1/asia')
+        .then(response => response.body)
+        .then(rb => {
+          const reader = rb.getReader();
+        
+          return new ReadableStream({
+            start(controller) {
+              function push() {
+                reader.read().then( ({done, value}) => {
+                  if (done) {
+                    controller.close();
+                    return;
+                  }
+                  controller.enqueue(value);
+                  push();
+                })
+              }
+              push();
+            }
+          });
+        })
+        .then(stream => {
+          return new Response(stream, { headers: { "Content-Type": "text/html" } }).text();
+        })
+        .then(result => {
+          const tojson = JSON.parse(result);
+          setXlabels(tojson['date']);
+          setYChina(tojson['china']);
+          setYKorea(tojson['korea']);
+          setYHongKong(tojson['hongkong']);
+          setYIndia(tojson['india']);
+          setYJapan(tojson['japan']);
+        });
+      },[update]);
 
     return (
         <div>

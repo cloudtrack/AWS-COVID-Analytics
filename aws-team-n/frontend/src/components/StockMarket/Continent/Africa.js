@@ -1,21 +1,44 @@
-/* eslint-disable  */
-
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Line } from "react-chartjs-2"
-import { getAfrica } from "../../../store/StockMarketStore";
-
 
 const Africa = () => {
+  const [update, setUpdate] = useState(false);
 
-  const update = false;
-  const dispatch = useDispatch();
-  const xlabels = useSelector((state) => state.graph.date_africa);
-  const yEgypt = useSelector((state) => state.graph.egypt);
-  const ySouthAfrica = useSelector((state) => state.graph.southafrica);
-
+  const [xlabels, setXlabels] = useState([]);
+  const [yEgypt, setYEgypt] = useState([]);
+  const [ySouthAfrica, setYSouthAmerica] = useState([]);
+  
   useEffect(() => {
-    dispatch(getAfrica());
+    fetch('http://127.0.0.1:5000/sm-graph1/africa')
+    .then(response => response.body)
+    .then(rb => {
+      const reader = rb.getReader();
+    
+      return new ReadableStream({
+        start(controller) {
+          function push() {
+            reader.read().then( ({done, value}) => {
+              if (done) {
+                controller.close();
+                return;
+              }
+              controller.enqueue(value);
+              push();
+            })
+          }
+          push();
+        }
+      });
+    })
+    .then(stream => {
+      return new Response(stream, { headers: { "Content-Type": "text/html" } }).text();
+    })
+    .then(result => {
+      const tojson = JSON.parse(result);
+      setXlabels(tojson['date']);
+      setYEgypt(tojson['egypt']);
+      setYSouthAmerica(tojson['sa']);
+    });
   },[update]);
   
   return (
