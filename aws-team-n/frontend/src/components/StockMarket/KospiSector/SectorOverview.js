@@ -12,6 +12,7 @@ const SectorOverview = () => {
   const [date, setDate] = useState('Choose Date');
   const [volume, setVolume] = useState([45, 45, 45, 45, 45, 45, 45, 45]);
   const [price, setPrice] = useState([1, 1, 1, 1, 1, 1, 1, 1]);
+  const update = false;
 
   const dispatch = useDispatch();
   const xlabels = useSelector((state) => state.graph.date_sector);
@@ -34,7 +35,7 @@ const SectorOverview = () => {
   
   useEffect(() => {
     dispatch(getSectorOverview());
-  });
+  }, [update]);
   
 
   return (

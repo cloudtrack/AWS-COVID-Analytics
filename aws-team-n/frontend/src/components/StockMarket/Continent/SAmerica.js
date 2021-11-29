@@ -9,6 +9,7 @@ import { getSAmerica } from "../../../store/StockMarketStore";
 const SAmerica = () => {
 
   const dispatch = useDispatch();
+  const update = false;
   const xlabels = useSelector((state) => state.graph.date_southamerica);
   const yPeru = useSelector((state) => state.graph.peru);
   const yBrazil = useSelector((state) => state.graph.brazil);
@@ -17,7 +18,7 @@ const SAmerica = () => {
 
   useEffect(() => {
     dispatch(getSAmerica());
-  });
+  },[update]);
   
   return (
     <div>

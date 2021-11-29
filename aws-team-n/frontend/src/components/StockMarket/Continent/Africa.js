@@ -8,6 +8,7 @@ import { getAfrica } from "../../../store/StockMarketStore";
 
 const Africa = () => {
 
+  const update = false;
   const dispatch = useDispatch();
   const xlabels = useSelector((state) => state.graph.date_africa);
   const yEgypt = useSelector((state) => state.graph.egypt);
@@ -15,7 +16,7 @@ const Africa = () => {
 
   useEffect(() => {
     dispatch(getAfrica());
-  });
+  },[update]);
   
   return (
     <div>

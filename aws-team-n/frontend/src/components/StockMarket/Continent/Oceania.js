@@ -9,13 +9,14 @@ import { getOceania } from "../../../store/StockMarketStore";
 const Oceania = () => {
 
   const dispatch = useDispatch();
+  const update = false;
   const xlabels = useSelector((state) => state.graph.date_oceania);
   const yNewZealand = useSelector((state) => state.graph.newzealand);
   const yAustralia = useSelector((state) => state.graph.australia);
 
   useEffect(() => {
     dispatch(getOceania());
-  });
+  },[update]);
   
 
   return (

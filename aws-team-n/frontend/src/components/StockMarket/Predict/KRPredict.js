@@ -7,6 +7,7 @@ import { getKRPredict } from "../../../store/StockMarketStore";
 const KRPredict = () => {
 
   const dispatch = useDispatch();
+  const update = false;
 
   const xlabels = useSelector((state) => state.graph.date_krpredict);
   const yReal = useSelector((state) => state.graph.krreal);
@@ -14,7 +15,7 @@ const KRPredict = () => {
   
   useEffect(() => {
     dispatch(getKRPredict());
-  });
+  }, [update]);
 
   return (
     <div>

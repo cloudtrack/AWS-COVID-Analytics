@@ -8,6 +8,7 @@ import { getNAmerica } from "../../../store/StockMarketStore";
 
 const NAmerica = () => {
   const dispatch = useDispatch();
+  const update = false;
   const xlabels = useSelector((state) => state.graph.date_northamerica);
   const yUSA = useSelector((state) => state.graph.usa);
   const yCanada = useSelector((state) => state.graph.canada);
@@ -15,7 +16,7 @@ const NAmerica = () => {
 
   useEffect(() => {
     dispatch(getNAmerica());
-  });
+  },[update]);
   
 
   return (

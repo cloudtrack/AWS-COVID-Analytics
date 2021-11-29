@@ -9,6 +9,7 @@ import { getAsia } from "../../../store/StockMarketStore";
 const Asia = () => {
     const dispatch = useDispatch();
 
+    const update = false;
     const xlabels = useSelector((state) => state.graph.date_asia);
     const yChina = useSelector((state) => state.graph.china);
     const yKorea = useSelector((state) => state.graph.korea);
@@ -18,7 +19,7 @@ const Asia = () => {
   
     useEffect(() => {
       dispatch(getAsia());
-    });
+    },[update]);
 
     return (
         <div>

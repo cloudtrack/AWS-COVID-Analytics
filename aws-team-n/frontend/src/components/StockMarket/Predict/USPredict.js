@@ -7,6 +7,7 @@ import { getUSPredict } from "../../../store/StockMarketStore";
 const USPredict = () => {
 
   const dispatch = useDispatch();
+  const update = false;
 
   const xlabels = useSelector((state) => state.graph.date_uspredict);
   const yReal = useSelector((state) => state.graph.usreal);
@@ -14,7 +15,7 @@ const USPredict = () => {
 
   useEffect(() => {
     dispatch(getUSPredict());
-  });
+  }, [update]);
 
   return (
     <div>

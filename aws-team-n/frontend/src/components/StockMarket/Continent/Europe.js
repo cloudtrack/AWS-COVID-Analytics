@@ -9,6 +9,7 @@ import { getEurope } from "../../../store/StockMarketStore";
 const Europe = () => {
 
   const dispatch = useDispatch();
+  const update = false;
   const xlabels = useSelector((state) => state.graph.date_europe);
   const yUK = useSelector((state) => state.graph.uk);
   const yItaly = useSelector((state) => state.graph.italy);
@@ -19,7 +20,7 @@ const Europe = () => {
 
   useEffect(() => {
     dispatch(getEurope());
-  });
+  },[false]);
   
   return (
     <div>
