@@ -10,12 +10,6 @@ const UNEMPLOYMENT_URL =
 
 const MAJOR_EVENTS_URL =
   "https://gv2pn6qqx6.execute-api.ap-northeast-2.amazonaws.com/beta/major_events";
-// const headers = {
-//   "Access-Control-Allow-Origin": "*",
-//   "Content-Type": "application/json",
-//   "Access-Control-Allow-Headers": "Content-Type",
-//   "Access-Control-Allow-Credentials": true,
-// };
 
 /**
  * Unemployment chart view for COVID dashboard
