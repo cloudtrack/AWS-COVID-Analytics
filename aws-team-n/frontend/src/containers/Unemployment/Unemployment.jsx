@@ -73,13 +73,13 @@ export const Unemployment = (props) => {
     return [];
   };
 
-  const onLegendItemClick = (location) => {
+  const onSeriesClick = (location) => {
     setSelectedLocation(location);
   };
   const options = useLineChart({
     chartData: fetchedData,
     title: "Unemployment Rate by Country",
-    onLegendItemClick,
+    onSeriesClick,
   });
 
   const secondaryOptions = useLineChart({

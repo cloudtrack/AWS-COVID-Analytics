@@ -7,15 +7,25 @@ import { formatDate, parseChartData, parsePlotLines } from "../utils";
  */
 export const useLineChart = ({
   chartData,
-  onLegendItemClick,
+  /**
+   * Callback function when chart line series is clicked
+   */
+  onSeriesClick,
   plotLines = [],
   title = "",
 }) => {
   const seriesData = parseChartData(chartData);
   const plotLineData = parsePlotLines(plotLines);
 
-  const onClick = (e) => {
+  const onClick = (code) => {
+    console.log("click:");
+    // console.log(e);
     // callback function
+    if (onSeriesClick) onSeriesClick(code);
+  };
+
+  const onLegendItemClick = (code) => {
+    console.log(`Legend ${code} clicked`);
   };
 
   return {
@@ -26,9 +36,8 @@ export const useLineChart = ({
       line: {
         events: {
           legendItemClick: function (e) {
-            console.log(this.name);
-            if (onLegendItemClick) onLegendItemClick(this.name);
-            return false; // to cancel default action
+            onLegendItemClick(this.name);
+            // return false; // to cancel default action
           },
         },
         showInLegend: true,
@@ -38,9 +47,9 @@ export const useLineChart = ({
           events: {
             click: function (e) {
               e.preventDefault();
-              console.log("click:");
-              console.log(e.point);
-              onClick(e);
+              // console.log(this);
+              const code = this.series.legendItem.textStr;
+              onClick(code);
             },
             mouseOver: function (e) {
               // on mouse over
