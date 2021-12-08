@@ -8,7 +8,6 @@ const CountryInfo = ({ country }) => {
   useEffect(() => {
     csv(`/worldrecover.csv`).then((data) => {
       setData(data.find((s)=> s.Name === country));
-      console.log(data.find((s)=> s.Name === country));
     });
   }, [country]);
 

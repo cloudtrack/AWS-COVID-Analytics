@@ -22,7 +22,6 @@ const MapChart = ({ setTooltipContent, setCountry }) => {
   useEffect(() => {
     csv(`/worldrecover.csv`).then((data) => {
       setData(data);
-      console.log(data)
     });
   }, []);
 
