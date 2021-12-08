@@ -9,9 +9,11 @@ const KospiSector = () => {
             <div className="title">
                 Kospi Sector
             </div>
-            <div className="graph">
-                <Detail />
-                <div className="overview">
+            <div className="graphs-sector">
+                <div className="graph-sector">
+                    <Detail />
+                </div>
+                <div className="graph-sector">
                     <SectorOverview />
                 </div>
             </div>

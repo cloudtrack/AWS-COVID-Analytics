@@ -124,9 +124,9 @@ const Detail = () => {
 
   }
   return (
-      <div className="contents">
+    <div className="sector-contents">
         
-    <div className="sectorgraph">
+    <div className="graph-sector-detail">
       <Bar
         data= {{
           labels: xlabels,
@@ -149,7 +149,7 @@ const Detail = () => {
                             text: sector,
                             padding: 20,
                             font:{
-                                size: 16
+                                size: 20
                             }
                         },
                     },
@@ -163,9 +163,11 @@ const Detail = () => {
                         }
                     }
                   }}
-                width={450}
+                width={500}
                 height={400}
                 />
+        </div>
+        <div className="graph-sector-detail">
         <Bar
         data= {{
           labels: xlabels,
@@ -185,17 +187,17 @@ const Detail = () => {
                             text: sector,
                             padding: 20,
                             font:{
-                                size: 16
+                                size: 20
                             }
                         },
                     },
                   }}
-                width={450}
+                width={500}
                 height={400}
                 
                 />
     </div>
-    <div className="buttons">
+    <div className="buttons-sector">
             <button className="button" onClick={() => handleClick(1)}> Construction & Machinery </button>
             <button className="button" onClick={() => handleClick(2)}> Consumer Discretionary </button>
             <button className="button" onClick={() => handleClick(3)}> Consumer Staples </button>

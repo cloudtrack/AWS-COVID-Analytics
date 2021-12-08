@@ -1,15 +1,12 @@
 .predict{
-    margin:50px;
+    text-align: center;
 }
-.graph{
+.graphs-prediction{
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-evenly;
-    margin: 20px 50px;
+    text-align: center;
     }    
-.korea{
-    margin: 0 20px;
-}
-.us{
-    margin: 0 20px;
+.graph-prediction{
+    margin: 0 40px;
 }

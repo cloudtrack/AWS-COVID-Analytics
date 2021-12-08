@@ -76,7 +76,8 @@ const USPredict = () => {
                             text:"USA",
                             padding: 20,
                             font:{
-                                size: 16
+                                size: 20,
+                                borderColor: 'rgb(0, 0, 0)'
                             }
                         },
                         legend:{
@@ -87,7 +88,7 @@ const USPredict = () => {
                                 boxHeight: 15,
                                 padding: 15,
                                 font:{
-                                    size: 13
+                                    size: 14
                                 }
                             },
                         },

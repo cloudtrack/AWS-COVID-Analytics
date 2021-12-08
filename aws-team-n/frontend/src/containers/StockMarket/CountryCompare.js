@@ -8,7 +8,7 @@ import './CountryCompare.css';
 
 const CountryCompare = () => {
     return(
-        <div className="CountryCompare">
+        <div className="CountryCompare" id="section">
             <div className="title">
                 World Stock Index
             </div>

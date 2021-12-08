@@ -9,13 +9,17 @@ import './StockMarket.css';
 class StockMarket extends Component{
     render(){
         return (
-            <div>
-                <div className="world">
+            <div className="graphs">
+                <div className="graph-item">
                     <CountryCompare />
                     <WorldRecover />
                 </div>
-                <Predict />
+                <div className="graph-item" id="section">
+                    <Predict />
+                </div>
+                <div className="graph-item" id="section">
                 <KospiSector />
+                </div>
             </div>
         )
     }

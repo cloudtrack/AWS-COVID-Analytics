@@ -154,10 +154,10 @@ const SectorOverview = () => {
                     plugins: {
                         title:{
                             display: true,
-                            text:"Kospi Sector",
+                            text:"Kospi Sector Overview",
                             padding: 20,
                             font:{
-                                size: 16
+                                size: 20
                             }
                         },
                         legend:{
@@ -183,8 +183,8 @@ const SectorOverview = () => {
                         }
                     }
                   }}
-                width={800}
-                height={600}
+                width={840}
+                height={540}
                 getElementAtEvent={(elements, event) => {
                     if (event.type === "click" && elements.length) {
                         let index = elements[0].index;
@@ -236,7 +236,7 @@ const SectorOverview = () => {
                             text: date,
                             padding: 20,
                             font:{
-                                size: 16
+                                size: 20
                             }
                         },
                         legend:{
@@ -247,7 +247,7 @@ const SectorOverview = () => {
                                 boxHeight: 15,
                                 padding: 15,
                                 font:{
-                                    size: 13
+                                    size: 14
                                 }
                             },
                         },
@@ -258,8 +258,8 @@ const SectorOverview = () => {
                         }
                     }
                   }}
-                width={500}
-                height={600}
+                width={460}
+                height={520}
                 
                 />
     </div>

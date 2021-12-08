@@ -9,7 +9,7 @@ const WorldRecover = () => {
     const [country, setCountry] = useState("");
 
     return(
-        <div className="WorldRecover">
+        <div className="WorldRecover" id="section">
             <div className="title">
                 Days for Financial Recovery
             </div>

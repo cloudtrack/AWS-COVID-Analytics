@@ -8,11 +8,11 @@ const Predict = () => {
             <div className="title">
                 Stock Index Prediction
             </div>
-            <div className="graph">
-                <div className="korea">
+            <div className="graphs-prediction">
+                <div className="graph-prediction">
                     <KRPredict />
                 </div>
-                <div className="us">
+                <div className="graph-prediction">
                     <USPredict />
                 </div>
             </div>
