@@ -30,7 +30,7 @@
     padding: 30px 0;
     margin: 10px 20px;
     height:150px;
-    width: 210px;
+    width: 190px;
     vertical-align: middle;
 }
 .tag{
@@ -48,10 +48,10 @@
     font-size: 14pt;
 }
 .info{
-    font-size: 10pt;
+    font-size: 11pt;
     text-align: left;
-    margin-top: 20px;
+    margin: 20px 20px 0 20px;
 }
 .info-detail{
-    margin: 5px 0;
+    margin: 10px 0;
 }
