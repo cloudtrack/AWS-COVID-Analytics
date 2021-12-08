@@ -126,6 +126,17 @@ def oceania():
 
     return data
 
+def worldmap():
+    s3_client = boto3.client("s3")
+    obj = s3_client.get_object(Bucket='cleaned-data-covid', Key='stock/worldrecover.csv')
+    data = pd.read_csv(obj['Body'])
+    data.fillna(0, inplace = True) 
+    result = data.values.tolist()
+    
+    data = {"data":result}
+
+    return data
+
 def krpredict():
     s3_client = boto3.client("s3")
     obj = s3_client.get_object(Bucket='cleaned-data-covid', Key='stock/krpredict.csv')

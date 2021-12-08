@@ -42,6 +42,11 @@ def oceania():
     graph = stockMarket.oceania()
     return graph
 
+@app.route("/sm-graph2/worldmap", methods=["GET"])
+def worldmap():
+    graph = stockMarket.worldmap()
+    return graph
+
 @app.route("/sm-graph3/krpredict", methods=["GET"])
 def krpredict():
     graph = stockMarket.krpredict()
