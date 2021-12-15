@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import { GeoJSON, MapContainer } from "react-leaflet";
 import o3_2020_12_28 from '../data/o3-2020-12-28.json';
-import o3_2021_04_29 from '../data/o3-2021-04-29.json';
 import {Slider} from '@mui/material';
 import 'leaflet/dist/leaflet.css';
 import './graph1.css'
