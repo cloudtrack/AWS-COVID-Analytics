@@ -1,0 +1,12 @@
+.predict{
+    text-align: center;
+}
+.graphs-prediction{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: center;
+    }    
+.graph-prediction{
+    margin: 0 40px;
+}

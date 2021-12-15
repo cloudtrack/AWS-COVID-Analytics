@@ -1,23 +1,24 @@
-.Tabs{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    background-color: grey;
+.Tabs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: grey;
 }
-.active{
-    background-color: darkgrey;
+.active {
+  background-color: darkgrey;
 }
 li {
-    list-style: none;
-    width: 100%;
+  list-style: none;
+  width: 100%;
 }
-li a{
-    display: block;
-    text-decoration: none;
-    list-style: none;
-    padding: 15px;
-    color: black
+li a {
+  display: block;
+  text-decoration: none;
+  list-style: none;
+  padding: 15px;
+  color: black;
 }
-li a:hover, a:focus{
-    background-color: darkgray;
+li a:hover,
+a:focus {
+  background-color: darkgray;
 }

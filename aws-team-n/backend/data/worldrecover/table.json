@@ -1,0 +1,200 @@
+[
+  {
+    "country": "US",
+    "startDate": "2020/03/11",
+    "minDate": "2020/03/23",
+    "coverDate": "2020/04/16",
+    "startToMin": 12,
+    "minToCover": 24,
+    "startToCover": 36
+  },
+  {
+    "country": "UK",
+    "startDate": "2020/02/25",
+    "minDate": "2020/03/23",
+    "coverDate": "2020/11/16",
+    "startToMin": 27,
+    "minToCover": 238,
+    "startToCover": 265
+  },
+  {
+    "country": "Argentina",
+    "startDate": "2020/03/09",
+    "minDate": "2020/03/18",
+    "coverDate": "2020/05/11",
+    "startToMin": 9,
+    "minToCover": 54,
+    "startToCover": 63
+  },
+  {
+    "country": "Italy",
+    "startDate": "2020/03/04",
+    "minDate": "2020/03/16",
+    "coverDate": "2020/11/10",
+    "startToMin": 12,
+    "minToCover": 239,
+    "startToCover": 251
+  },
+  {
+    "country": "Swiss",
+    "startDate": "2020/03/04",
+    "minDate": "2020/03/23",
+    "coverDate": "2020/06/05",
+    "startToMin": 19,
+    "minToCover": 74,
+    "startToCover": 93
+  },
+  {
+    "country": "Egypt",
+    "startDate": "",
+    "minDate": "2020/03/18",
+    "coverDate": "2020/11/11",
+    "startToMin": 43908,
+    "minToCover": 238,
+    "startToCover": 44146
+  },
+  {
+    "country": "SouthAfrica",
+    "startDate": "2020/02/26",
+    "minDate": "2020/03/19",
+    "coverDate": "2020/06/05",
+    "startToMin": 22,
+    "minToCover": 78,
+    "startToCover": 100
+  },
+  {
+    "country": "China",
+    "startDate": "2020/02/03",
+    "minDate": "2020/03/23",
+    "coverDate": "2020/06/05",
+    "startToMin": 49,
+    "minToCover": 74,
+    "startToCover": 123
+  },
+  {
+    "country": "Australia",
+    "startDate": "2020/03/02",
+    "minDate": "2020/03/23",
+    "coverDate": "2020/10/14",
+    "startToMin": 21,
+    "minToCover": 205,
+    "startToCover": 226
+  },
+  {
+    "country": "Canada",
+    "startDate": "2020/03/03",
+    "minDate": "2020/03/23",
+    "coverDate": "2020/07/20",
+    "startToMin": 20,
+    "minToCover": 119,
+    "startToCover": 139
+  },
+  {
+    "country": "Germany",
+    "startDate": "2020/03/02",
+    "minDate": "2020/03/18",
+    "coverDate": "2020/06/05",
+    "startToMin": 16,
+    "minToCover": 79,
+    "startToCover": 95
+  },
+  {
+    "country": "Brazil",
+    "startDate": "2020/03/06",
+    "minDate": "2020/03/23",
+    "coverDate": "2020/07/04",
+    "startToMin": 17,
+    "minToCover": 103,
+    "startToCover": 120
+  },
+  {
+    "country": "Korea",
+    "startDate": "2020/02/27",
+    "minDate": "2020/03/19",
+    "coverDate": "2020/06/01",
+    "startToMin": 21,
+    "minToCover": 74,
+    "startToCover": 95
+  },
+  {
+    "country": "Chile",
+    "startDate": "",
+    "minDate": "2020/03/18",
+    "coverDate": "2020/11/19",
+    "startToMin": 43908,
+    "minToCover": 246,
+    "startToCover": 44154
+  },
+  {
+    "country": "Netherlands",
+    "startDate": "2020/02/28",
+    "minDate": "2020/03/18",
+    "coverDate": "2020/06/22",
+    "startToMin": 19,
+    "minToCover": 96,
+    "startToCover": 115
+  },
+  {
+    "country": "France",
+    "startDate": "2020/02/28",
+    "minDate": "2020/03/18",
+    "coverDate": "2020/11/10",
+    "startToMin": 19,
+    "minToCover": 237,
+    "startToCover": 256
+  },
+  {
+    "country": "Hongkong",
+    "startDate": "2020/01/30",
+    "minDate": "2020/03/23",
+    "coverDate": "2020/11/09",
+    "startToMin": 53,
+    "minToCover": 231,
+    "startToCover": 284
+  },
+  {
+    "country": "Peru",
+    "startDate": "2020/01/30",
+    "minDate": "2020/04/03",
+    "coverDate": "2020/08/13",
+    "startToMin": 64,
+    "minToCover": 132,
+    "startToCover": 196
+  },
+  {
+    "country": "India",
+    "startDate": "",
+    "minDate": "",
+    "coverDate": "2021/08/11",
+    "startToMin": -43888,
+    "minToCover": 44419,
+    "startToCover": "2021/08/11"
+  },
+  {
+    "country": "Mexico",
+    "startDate": "2020/02/27",
+    "minDate": "2020/03/23",
+    "coverDate": "2020/11/11",
+    "startToMin": 25,
+    "minToCover": 233,
+    "startToCover": 258
+  },
+  {
+    "country": "NewZealand",
+    "startDate": "2020/03/12",
+    "minDate": "2020/03/23",
+    "coverDate": "2020/06/05",
+    "startToMin": 11,
+    "minToCover": 74,
+    "startToCover": 85
+  },
+  {
+    "country": "Japan",
+    "startDate": "2020/03/02",
+    "minDate": "2020/03/19",
+    "coverDate": "2020/06/01",
+    "startToMin": 17,
+    "minToCover": 74,
+    "startToCover": 91
+  }
+]
