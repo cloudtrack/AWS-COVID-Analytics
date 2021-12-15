@@ -1,48 +1,48 @@
-.title{
-    text-align: center;
-    font-size: 24px;
-    font-weight: 800;
+.title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 800;
 }
-.graph-sector{
-    margin-bottom: 100px;
+.graph-sector {
+  margin-bottom: 100px;
 }
-.graph-sector-detail{
-     margin: 0 25px;
+.graph-sector-detail {
+  margin: 0 25px;
 }
-.buttons-sector{
-    margin: 60px 0 0 60px;
-    text-align: center;
+.buttons-sector {
+  margin: 60px 0 0 60px;
+  text-align: center;
 }
-.button{
-    margin: 5px 15px;
-    background-color: rgb(255, 205, 86);
-    cursor: pointer;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    letter-spacing: 0.6px;
-    text-align: center;
-    text-decoration: none;
-    white-space: nowrap;
-    display: flex;
-    flex-direction: column;
+.button {
+  margin: 5px 15px;
+  background-color: rgb(255, 205, 86);
+  cursor: pointer;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  letter-spacing: 0.6px;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  display: flex;
+  flex-direction: column;
 }
-.sector-contents{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+.sector-contents {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
-.sectorgraph{
-    display: flex;
-    flex-direction: row;
+.sectorgraph {
+  display: flex;
+  flex-direction: row;
 }
-.sector-overview-graph{
-    display: flex;
-    justify-content: space-between;
+.sector-overview-graph {
+  display: flex;
+  justify-content: space-between;
 }
 
-.overview{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+.overview {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
