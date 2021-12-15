@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import Plot from "react-plotly.js";
 import * as d3 from "d3";
 
 class Graph2 extends Component{
@@ -58,7 +57,7 @@ class Graph2 extends Component{
 
         return (
             <div>
-                <Plot data={this.state.data} layout={this.layout}/>
+
             </div>
         )
     }

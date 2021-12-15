@@ -135,6 +135,6 @@ class Graph1 extends Component{
             </div>
         )
     }
-};
+}
 
 export default Graph1;

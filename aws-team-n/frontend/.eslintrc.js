@@ -8,7 +8,7 @@ module.exports = {
   },
   extends: [
     "eslint:recommended",
-    "plugin:prettier/recommended", // must be last
+    // "plugin:prettier/recommended", // must be last
   ],
   globals: {},
   parser: "babel-eslint",

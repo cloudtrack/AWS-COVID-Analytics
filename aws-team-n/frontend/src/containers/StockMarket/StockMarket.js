@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import CountryCompare from './CountryCompare';
-import Chart from 'chart.js/auto';
 import Predict from './Predict';
 import KospiSector from './KospiSector';
 import WorldRecover from "./WorldRecover";
@@ -23,6 +22,6 @@ class StockMarket extends Component{
             </div>
         )
     }
-};
+}
 
 export default StockMarket;
