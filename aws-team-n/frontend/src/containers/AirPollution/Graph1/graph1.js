@@ -24,35 +24,35 @@ class Graph1 extends Component{
         // o3_data: o3_data
     }
     componentDidMount(){
-        this.setState({loading: true})
-        var i = 0
-        var data = this.state.o3_data
-        var dates = []
-        while(i < MAX){
-            var newDay = new Date(this.state.date.getTime() + i * 24*60*60*1000)
-            var date = newDay.toISOString().split('T')[0]
-            dates.push(date)
-            i++
-        }
-        var process = [0, 1]
-        process.forEach((ps) => {
-            if (ps == 0){
-                dates.forEach((date) => {
-                    console.log(date)
-                    fetch(`http://127.0.0.1:5000/ap-graph1/${date}`)
-                        .then(resp =>
-                        resp.json()
-                    )
-                    .then((item) => {
-                        data[date] = item
-                    })
-                })
-            }
-            else{
-                this.setState({...this.state, o3_data: data})
-                this.setState({loading: false})
-            }
-        })
+        // this.setState({loading: true})
+        // var i = 0
+        // var data = this.state.o3_data
+        // var dates = []
+        // while(i < MAX){
+        //     var newDay = new Date(this.state.date.getTime() + i * 24*60*60*1000)
+        //     var date = newDay.toISOString().split('T')[0]
+        //     dates.push(date)
+        //     i++
+        // }
+        // var process = [0, 1]
+        // process.forEach((ps) => {
+        //     if (ps == 0){
+        //         dates.forEach((date) => {
+        //             console.log(date)
+        //             fetch(`http://127.0.0.1:5000/ap-graph1/${date}`)
+        //                 .then(resp =>
+        //                 resp.json()
+        //             )
+        //             .then((item) => {
+        //                 data[date] = item
+        //             })
+        //         })
+        //     }
+        //     else{
+        //         this.setState({...this.state, o3_data: data})
+        //         this.setState({loading: false})
+        //     }
+        // })
     }
 
     getColor = (d) => {
@@ -111,28 +111,30 @@ class Graph1 extends Component{
         const position = [this.state.lat, this.state.lng];
         return (
             <div>
-                <h1 style={{ textAlign: "center" }}>My Map</h1>
-
-                {
-                    this.state.loading ? <h1>LOADING</h1>
-                    :
-                    <div>
-                        <div style={{width: '80%'}}>
-                            <Slider defaultValue={0} step={1} min={0} max={MAX}
-                            valueLabelDisplay="auto" onChange={this.handleSliderChange}
-                            />
-                        </div>
-                        <h3>{this.state.shortDate}</h3>
-                        <MapContainer style={{ height: "80vh" }} zoom={2} center={[20, 100]}>
-                        <GeoJSON
-                            key={this.state.shortDate}
-                            style={this.style}
-                            data={data}
-                        />
-                        </MapContainer>
-                    </div>
-                }
+                helconsole.log();
             </div>
+            //     <h1 style={{ textAlign: "center" }}>My Map</h1>
+
+            //     {
+            //         this.state.loading ? <h1>LOADING</h1>
+            //         :
+            //         <div>
+            //             <div style={{width: '80%'}}>
+            //                 <Slider defaultValue={0} step={1} min={0} max={MAX}
+            //                 valueLabelDisplay="auto" onChange={this.handleSliderChange}
+            //                 />
+            //             </div>
+            //             <h3>{this.state.shortDate}</h3>
+            //             <MapContainer style={{ height: "80vh" }} zoom={2} center={[20, 100]}>
+            //             <GeoJSON
+            //                 key={this.state.shortDate}
+            //                 style={this.style}
+            //                 data={data}
+            //             />
+            //             </MapContainer>
+            //         </div>
+            //     }
+            // </div>
         )
     }
 }

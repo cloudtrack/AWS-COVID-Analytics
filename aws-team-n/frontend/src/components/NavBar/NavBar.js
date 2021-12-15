@@ -9,7 +9,7 @@ const NavBar = () => {
         <li className={path === "/main" && "active"}>
           <a href="/main">COVID</a>
         </li>
-        <li className={path === "/air-pollution" && "active"}>
+        <li className={(path === "/air-pollution" || path === "/air-pollution-graph2") && "active"}>
           <a href="/air-pollution">Air</a>
         </li>
         <li className={path === "/stock-market" && "active"}>
