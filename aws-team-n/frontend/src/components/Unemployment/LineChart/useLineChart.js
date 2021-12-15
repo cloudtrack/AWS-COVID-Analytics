@@ -11,37 +11,57 @@ export const useLineChart = ({
    * Callback function when chart line series is clicked
    */
   onSeriesClick,
+  onLegendItemClick,
   plotLines = [],
   title = "",
+  showLegend = false,
 }) => {
   const seriesData = parseChartData(chartData);
   const plotLineData = parsePlotLines(plotLines);
 
-  const onClick = (code) => {
+  const handleSeriesClick = (code) => {
     console.log("click:");
     // console.log(e);
     // callback function
     if (onSeriesClick) onSeriesClick(code);
   };
 
-  const onLegendItemClick = (code) => {
+  const handleLegendItemClick = (code) => {
     console.log(`Legend ${code} clicked`);
+    if (onLegendItemClick) {
+      onLegendItemClick(code);
+      return false; // to cancel default action
+    }
   };
 
   return {
     title: {
       text: title,
     },
+    credits: {
+      enabled: false,
+    },
+    chart: {
+      // width: "100%",
+    },
+    legend: {
+      layout: "vertical",
+      align: "right",
+      verticalAlign: "middle",
+      itemMarginTop: 2,
+      itemMarginBottom: 2,
+    },
     plotOptions: {
       line: {
         events: {
           legendItemClick: function (e) {
-            onLegendItemClick(this.name);
-            // return false; // to cancel default action
+            return handleLegendItemClick(this.name);
+            // if (onLegendItemClick) return false; // to cancel default action
           },
         },
-        showInLegend: true,
+        showInLegend: showLegend,
       },
+
       series: {
         point: {
           events: {
@@ -49,7 +69,7 @@ export const useLineChart = ({
               e.preventDefault();
               // console.log(this);
               const code = this.series.legendItem.textStr;
-              onClick(code);
+              handleSeriesClick(code);
             },
             mouseOver: function (e) {
               // on mouse over
@@ -67,6 +87,7 @@ export const useLineChart = ({
       },
       plotLines: plotLineData,
     },
+    yAxis: { title: { text: "Unemployment rate" } },
     series: seriesData,
   };
 };

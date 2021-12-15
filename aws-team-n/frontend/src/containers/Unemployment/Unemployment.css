@@ -1,12 +1,14 @@
-.row-container {
-  /* display: flex; */
-  overflow: hidden;
+.chart-container {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 20px 0px;
+  height: 100%;
+  text-align: center;
 }
 
 .chart {
-  /* display: flex;
-  flex-direction: row; */
-  /* flex-wrap: wrap; */
-  /* align-items: stretch; */
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-bottom: 20px;
 }

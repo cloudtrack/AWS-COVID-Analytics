@@ -3,7 +3,13 @@ import React, { useEffect, useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import axios from "axios";
-import { useLineChart } from "../../components/Charts/Line/useLineChart";
+import { useLineChart } from "../../components/Unemployment/LineChart/useLineChart";
+import {
+  EACountries,
+  EUCountries,
+  g7Countries,
+  getCountryName,
+} from "../../components/Unemployment/countries";
 
 const UNEMPLOYMENT_URL =
   "https://vgexf4h4u8.execute-api.ap-northeast-2.amazonaws.com/beta/unemployment_rate";
@@ -76,25 +82,61 @@ export const Unemployment = (props) => {
   const onSeriesClick = (location) => {
     setSelectedLocation(location);
   };
-  const options = useLineChart({
+
+  const oecdOptions = useLineChart({
     chartData: fetchedData,
-    title: "Unemployment Rate by Country",
+    title: "OECD Unemployment Rate",
     onSeriesClick,
+    showLegend: true,
   });
 
-  const secondaryOptions = useLineChart({
+  const g7Options = useLineChart({
+    chartData: fetchedData?.filter(
+      (item) => item.location === "G-7" || g7Countries.includes(item.location),
+    ),
+    title: "G-7 Unemployment Rate",
+    onSeriesClick,
+    onLegendItemClick: onSeriesClick,
+    showLegend: true,
+  });
+
+  const EAOptions = useLineChart({
+    chartData: fetchedData?.filter(
+      (item) => item.location === "EA" || EACountries.includes(item.location),
+    ),
+    title: "Euro Area Unemployment Rate",
+    onSeriesClick,
+    onLegendItemClick: onSeriesClick,
+    showLegend: true,
+  });
+
+  const EUOptions = useLineChart({
+    chartData: fetchedData?.filter(
+      (item) => item.location === "EU" || EUCountries.includes(item.location),
+    ),
+    title: "European Union Unemployment Rate",
+    onSeriesClick,
+    onLegendItemClick: onSeriesClick,
+    showLegend: true,
+  });
+
+  /** detailed country chart */
+  const detailedOptions = useLineChart({
     chartData: getSecondaryChartData(fetchedData),
-    title: `${selectedLocation} Unemployment Rate`,
+    title: `${getCountryName(selectedLocation)} Unemployment Rate`,
     plotLines: majorEvents,
   });
 
   return (
-    <div className="row-container">
+    <div className="chart-container">
       <div className="chart">
-        <HighchartsReact highcharts={Highcharts} options={options} />
+        <HighchartsReact highcharts={Highcharts} options={oecdOptions} />
+        <HighchartsReact highcharts={Highcharts} options={g7Options} />
+        <HighchartsReact highcharts={Highcharts} options={EAOptions} />
+        <HighchartsReact highcharts={Highcharts} options={EUOptions} />
       </div>
       <div className="chart">
-        <HighchartsReact highcharts={Highcharts} options={secondaryOptions} />
+        <HighchartsReact highcharts={Highcharts} options={detailedOptions} />
       </div>
     </div>
   );
