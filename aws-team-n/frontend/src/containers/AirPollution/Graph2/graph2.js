@@ -39,6 +39,7 @@ import so2_covid_p90 from "../data/aws-forecasts-so2_covid_p90_df.json"
 import so2_p10 from "../data/aws-forecasts-so2_p10_df.json"
 import so2_p50 from "../data/aws-forecasts-so2_p50_df.json"
 import so2_p90 from "../data/aws-forecasts-so2_p90_df.json"
+import seoul_air from "../data/seoul-air-quality-no-blanks.json"
 
 
 const list = {
@@ -52,7 +53,8 @@ class Graph2 extends Component{
             'NO2': null,
             'SO2': null,
             'O3': null
-        }
+        },
+        s_data: null
     }
     componentDidMount(){
         const getFileName = (i, name) => {
@@ -70,6 +72,34 @@ class Graph2 extends Component{
             }
             return name
         }
+        const lbls = no2_covid_p10.map(data => {
+            return data['Timestamp'].split('T')[0]
+        })
+        const seoul_labels = seoul_air.map(data => {
+            return data['date']
+        })
+        const startingIdx = seoul_labels.findIndex(l => l == lbls[0])
+        const seoul_data = {
+            'NO2': {
+                label: "actual observations",
+                data: seoul_air.map(data => {data[' no2']}).splice(0, startingIdx+1), //.concat(datasets[0]),
+                borderColor: 'rgb(150, 150, 150)',
+                backgroundColor: 'rgb(150, 150, 150)'
+            },
+            'O3': {
+                label: "actual observations",
+                data: seoul_air.map(data => {data[' o3']}).splice(0, startingIdx+1), // .concat(datasets[0]),
+                borderColor: 'rgb(150, 150, 150)',
+                backgroundColor: 'rgb(150, 150, 150)'
+            },
+            'SO2': {
+                label: "actual observations",
+                data: seoul_air.map(data => {data[' so2']}).splice(0, startingIdx+1), //.concat(datasets[0]),
+                borderColor: 'rgb(150, 150, 150)',
+                backgroundColor: 'rgb(150, 150, 150)'
+            },
+        }
+
         const datasets = ['NO2', 'SO2', 'O3'].map((idx) => {
             return list[idx].map((file, i) => {
                 const values = file.map(data => {
@@ -77,15 +107,14 @@ class Graph2 extends Component{
                 })
                 const ret = {}
                 ret['label'] = getFileName(i, idx)
-                ret['data'] = values
+                ret['data'] = [].fill(0, 0, startingIdx).concat(values)
                 ret['borderColor'] = i < 3 ? `rgba(255, 150, 132, ${(i+2)/4})` : `rgba(132, 99, 255, ${1/5 + (i%3+1)/7})`
                 ret['backgroundColor'] =  i < 3 ? `rgba(255, 150, 132, ${(i+2)/4})` : `rgba(132, 99, 255, ${1/5 + (i%3+1)/7})`
                 return ret
-            })
+            }).concat(seoul_data[idx])
         })
-        const labels = no2_covid_p10.map(data => {
-            return data['Timestamp'].split('T')[0]
-        })
+        const labels = lbls //Array(startingIdx).fill(0).concat(lbls) # TODO uncomment this for all dates and baseline
+
         const data = {
             'NO2': {
                 labels,
@@ -99,9 +128,14 @@ class Graph2 extends Component{
                 labels,
                 datasets: datasets[2]
             },
+            'seoul': {
+                labels,
+                datasets: seoul_data
+            }
           };
 
         this.setState({data: data})
+
     }
 
     render(){
@@ -130,16 +164,20 @@ class Graph2 extends Component{
             return options
         }
 
+        const onAnimation = () => {
+            console.log("He")
+        }
+
 
         return (
-            <div>
-                <div className="so2-chart" style={{height: "600px", marginBottom: "50px"}}>
-                    {this.state.data['SO2'] && <Line options={getOptions('SO2')} data={this.state.data['SO2']} />}
+            <div style={{alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
+                <div className="so2-chart" style={{height: "600px", width: "900px", marginBottom: "50px"}}>
+                    {this.state.data['SO2'] && <Line options={getOptions('SO2')} data={this.state.data['SO2']} onAnimationEnd={onAnimation()} />}
                 </div>
-                <div className="o3-chart" style={{height: "600px"}}>
+                <div className="o3-chart" style={{height: "600px", width: "900px", marginBottom: "50px"}}>
                     {this.state.data['O3'] && <Line options={getOptions('O3')} data={this.state.data['O3']} />}
                 </div>
-                <div className="no2-chart" style={{height: "600px"}}>
+                <div className="no2-chart" style={{height: "600px", width: "900px", marginBottom: "50px"}}>
                     {this.state.data['NO2'] && <Line options={getOptions('NO2')} data={this.state.data['NO2']} />}
                 </div>
             </div>
