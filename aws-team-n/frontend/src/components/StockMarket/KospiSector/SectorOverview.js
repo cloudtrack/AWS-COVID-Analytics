@@ -1,11 +1,26 @@
-/* eslint-disable  */
-
+import { useRef } from 'react';
 import React, { useEffect, useState } from 'react';
-import { Line, PolarArea } from "react-chartjs-2"
+import { Line, PolarArea, getElementsAtEvent } from "react-chartjs-2"
 import './SectorOverview.css'
 
 
 const SectorOverview = () => {
+
+  const chartRef = useRef();
+  const onClick = (event) => {
+    const elem = getElementsAtEvent(chartRef.current, event)
+    if(!elem.length)
+      return;
+    let index = elem[0].index;
+      
+        setDate(xlabels[index]);
+
+        let currPrice = [yCMPrice[index], yCDPrice[index], yCSPrice[index], yECPrice[index], yFPrice[index], yHIPrice[index], yITPrice[index], ySMPrice[index]]
+        let vSum = parseInt(yCMVolume[index]) + parseInt(yCDVolume[index]) + parseInt(yCSVolume[index]) + parseInt(yECVolume[index]) + parseInt(yFVolume[index]) + parseInt(yHIVolume[index]) + parseInt(yITVolume[index]) + parseInt(ySMVolume[index])
+        let currVolume = [360*(yCMVolume[index]/vSum), 360*(yCDVolume[index]/vSum), 360*(yCSVolume[index]/vSum), 360*(yECVolume[index]/vSum), 360*(yFVolume[index]/vSum), 360*(yHIVolume[index]/vSum), 360*(yITVolume[index]/vSum), 360*(ySMVolume[index]/vSum)]
+        setPrice(currPrice)
+        setVolume(currVolume)
+  }
 
   const [update, setUpdate] = useState(false)
   const [volume, setVolume] = useState([45, 45, 45, 45, 45, 45, 45, 45]);
@@ -77,9 +92,16 @@ const SectorOverview = () => {
       });
     },[update]);
 
+  const getElementAtEvent = (elem) => {
+    if(!elem.length)
+      return;
+    console.log(elem)
+  }
+
   return (
     <div className="sector-overview-graph">
       <Line
+        ref={chartRef}
         data= {{
           labels: xlabels,
           datasets: [
@@ -183,23 +205,9 @@ const SectorOverview = () => {
                         }
                     }
                   }}
-                width={840}
-                height={540}
-                getElementAtEvent={(elements, event) => {
-                    if (event.type === "click" && elements.length) {
-                        let index = elements[0].index;
-                        console.log(elements[0]);
-                      
-                        setDate(xlabels[index]);
-                        console.log(date);
-
-                        let currPrice = [yCMPrice[index], yCDPrice[index], yCSPrice[index], yECPrice[index], yFPrice[index], yHIPrice[index], yITPrice[index], ySMPrice[index]]
-                        let vSum = parseInt(yCMVolume[index]) + parseInt(yCDVolume[index]) + parseInt(yCSVolume[index]) + parseInt(yECVolume[index]) + parseInt(yFVolume[index]) + parseInt(yHIVolume[index]) + parseInt(yITVolume[index]) + parseInt(ySMVolume[index])
-                        let currVolume = [360*(yCMVolume[index]/vSum), 360*(yCDVolume[index]/vSum), 360*(yCSVolume[index]/vSum), 360*(yECVolume[index]/vSum), 360*(yFVolume[index]/vSum), 360*(yHIVolume[index]/vSum), 360*(yITVolume[index]/vSum), 360*(ySMVolume[index]/vSum)]
-                        setPrice(currPrice)
-                        setVolume(currVolume)
-                    }
-                  }}
+                  onClick={onClick}
+                  width={840}
+                  height={540}
                 />
         <PolarArea
         data= {{
