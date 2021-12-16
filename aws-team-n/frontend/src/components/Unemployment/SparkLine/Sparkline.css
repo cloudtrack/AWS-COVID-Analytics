@@ -2,7 +2,7 @@
   justify-content: flex-start;
 }
 
-.title {
+.header-title {
   margin-top: 30px;
   text-align: center;
   font-size: 24px;
@@ -10,6 +10,7 @@
 }
 
 tr {
+  color: gray;
   font-size: 12px;
 }
 
@@ -23,7 +24,6 @@ td {
 
 #result {
   text-align: right;
-  color: gray;
   min-height: 2em;
 }
 

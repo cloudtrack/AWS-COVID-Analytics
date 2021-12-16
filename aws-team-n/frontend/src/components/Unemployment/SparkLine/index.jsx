@@ -59,6 +59,7 @@ export const SparklineChart = ({ chartData, onClick }) => {
       const [hover, setHover] = React.useState(false);
 
       const sparklineData = item.rates
+        .filter((item) => item.time >= "2020-Q4")
         .map((item) => parseFloat(item.value).toFixed(2))
         .join(", ");
       const youthData = youthUnemployment.filter(
@@ -75,7 +76,7 @@ export const SparklineChart = ({ chartData, onClick }) => {
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
           style={{
-            backgroundColor: hover ? "pink" : "transparent",
+            backgroundColor: hover ? "rgba(255, 206, 86, 0.2)" : "transparent",
           }}
         >
           <th>{getCountryName(item.location)}</th>

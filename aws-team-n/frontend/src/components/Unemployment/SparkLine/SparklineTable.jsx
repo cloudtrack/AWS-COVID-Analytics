@@ -34,24 +34,7 @@ class SparkLineTable extends React.Component {
     const dataLabels = element.props["data-labels"]?.split(", ") || "";
 
     const data = dataAttr[0].split(", ").map(Number);
-    // const options = {
-    //   series: [
-    //     {
-    //       data,
-    //       pointStart: 1,
-    //     },
-    //   ],
 
-    //   tooltip: {
-    //     headerFormat: `<span style="font-sze:10px">${header}, Q{point.x}: </span><br/>`,
-    //     pointFormat: "<b>{point.y}.000</b> USD",
-    //   },
-    //   chart: {
-    //     type: dataAttr[1] || "area",
-    //   },
-    // };
-    // console.log("data attribute: " + dataAttr[1]);
-    // console.log(typeof dataAttr[1]);
     return (
       <SparkLine
         data={data}
@@ -60,7 +43,6 @@ class SparkLineTable extends React.Component {
         chartType={dataAttr[1]}
       />
     );
-    // return <SparkLine options={options} />;
   }
 
   render() {
@@ -69,7 +51,6 @@ class SparkLineTable extends React.Component {
       borderCollapse: "collapse",
     };
 
-    // return <SparkLine />;
     return <table style={style}>{this.toSparkLine(this.props.children)}</table>;
   }
 }

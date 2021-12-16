@@ -21,7 +21,6 @@ export const useLineChart = ({
 
   const handleSeriesClick = (code) => {
     console.log("click:");
-    // console.log(e);
     // callback function
     if (onSeriesClick) onSeriesClick(code);
   };
@@ -66,7 +65,6 @@ export const useLineChart = ({
           states: {
             hover: {
               enabled: true,
-              // lineColor: "rgb(100,100,100)",
             },
           },
         },
@@ -83,12 +81,8 @@ export const useLineChart = ({
           events: {
             click: function (e) {
               e.preventDefault();
-              // console.log(this);
               const code = this.series.legendItem.textStr;
               handleSeriesClick(code);
-            },
-            mouseOver: function (e) {
-              // on mouse over
             },
           },
         },

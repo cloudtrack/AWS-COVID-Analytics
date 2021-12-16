@@ -16,7 +16,6 @@ const getdefaultOptions = (data, header = "", chartType = "area", labels) => {
       height: 40,
       style: {
         overflow: "visible",
-        // marginTop: 5,
       },
       // small optimalization, saves 1-2 ms each sparkline
       skipClone: true,
@@ -74,11 +73,12 @@ const getdefaultOptions = (data, header = "", chartType = "area", labels) => {
     plotOptions: {
       series: {
         animation: true,
-        lineWidth: 1,
+        lineWidth: 2,
+
         shadow: false,
         states: {
           hover: {
-            lineWidth: 1,
+            lineWidth: 2,
           },
         },
         marker: {
@@ -89,16 +89,22 @@ const getdefaultOptions = (data, header = "", chartType = "area", labels) => {
             },
           },
         },
-        fillOpacity: 0.25,
+        fillColor: "rgba(153, 102, 255, 0.2)",
+        lineColor: "rgba(153, 102, 255, 0.8)",
       },
       column: {
-        color: "#910000",
-        borderColor: "silver",
-        labels: {
-          format: "{value}%",
+        dataLabels: {
+          enabled: true,
+          style: {
+            fontSize: "8px",
+            fontFamily: "Verdana, sans-serif",
+          },
         },
+        colorByPoint: true,
       },
     },
+    // TODO: green or red based on baseline
+    colors: ["rgba(255, 99, 132, 0.5)", "rgba(54, 162, 235, 0.5)"],
     series: [
       {
         data: data ? data : defaultData,
@@ -113,19 +119,9 @@ class SparkLine extends React.Component {
     super(props);
   }
 
-  // componentDidMount() {
-  //   const options = Highcharts.merge(defaultOptions, this.props.options);
-  //   this.chart = Highcharts.chart(this.container, options);
-  // }
-
-  // componentWillUnmount() {
-  //   this.chart.destroy();
-  // }
-
   render() {
     return (
       <td>
-        {/* ref={(container) => (this.container = container)}> */}
         <HighchartsReact
           highcharts={Highcharts}
           options={getdefaultOptions(

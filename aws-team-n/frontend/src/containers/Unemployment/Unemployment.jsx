@@ -110,31 +110,9 @@ export const Unemployment = (props) => {
       })
       .then((result) => {
         const json = JSON.parse(result);
-        // console.log(JSON.parse(result));
         // setCovidData(json.body);
       });
   };
-
-  // const fetchChartData = React.useCallback(() => {
-  //   axios
-  //     .get(`${UNEMPLOYMENT_URL}`)
-  //     .then((response) => {
-  //       console.log("Successfully fetched unemployment chart data!\n");
-  //       console.log(response);
-  //       return response.data;
-  //     })
-  //     .then(({ body }) => {
-  //       console.log(JSON.parse(body));
-  //       const data = body;
-  //       setFetchedData(data);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     })
-  //     .finally(() => {
-  //       setLoaded(true);
-  //     });
-  // }, []);
 
   const fetchMajorEvents = () => {
     axios
@@ -164,7 +142,6 @@ export const Unemployment = (props) => {
 
   const onSelectLocation = (location) => {
     setSelectedLocation(location);
-    fetchCovidData(location);
   };
 
   const oecdOptions = useLineChart({
@@ -217,7 +194,6 @@ export const Unemployment = (props) => {
         <SparklineChart chartData={fetchedData} onClick={onSelectLocation} />
       </div>
       <div className="chart">
-        {/* <CovidChart covidData={covidData} /> */}
         <HighchartsReact highcharts={Highcharts} options={detailedOptions} />
         <HighchartsReact highcharts={Highcharts} options={oecdOptions} />
         <HighchartsReact highcharts={Highcharts} options={g7Options} />
