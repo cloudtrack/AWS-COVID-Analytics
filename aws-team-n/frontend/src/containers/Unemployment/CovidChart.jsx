@@ -1,42 +1,40 @@
-import { formatDate, parseChartData, parsePlotLines } from "../utils";
+import React from "react";
 
-/**
- * Hook to generate line chart options from given chart data.
- *
- * @returns config options for Highcharts Line Chart component
- */
-export const useLineChart = ({
-  chartData,
-  /**
-   * Callback function when chart line series is clicked
-   */
-  onSeriesClick,
-  onLegendItemClick,
-  plotLines = [],
-  title = "",
-  showLegend = false,
-}) => {
-  const seriesData = parseChartData(chartData);
-  const plotLineData = parsePlotLines(plotLines);
+import Highcharts from "highcharts";
+import HighchartsReact from "highcharts-react-official";
+import {
+  formatDate,
+  getTimestampFromDate,
+} from "../../components/Unemployment/utils";
 
-  const handleSeriesClick = (code) => {
-    console.log("click:");
-    // console.log(e);
-    // callback function
-    if (onSeriesClick) onSeriesClick(code);
+export const CovidChart = ({ covidData }) => {
+  const parseCovidData = () => {
+    const parsedData = covidData.map((item) => {
+      return [getTimestampFromDate(item.date), item.total_cases];
+    });
+
+    return {
+      data: parsedData,
+      type: "spline",
+      fillColor: "transparent",
+      lineWidth: 2,
+    };
   };
 
-  const handleLegendItemClick = (code) => {
-    console.log(`Legend ${code} clicked`);
-    if (onLegendItemClick) {
-      onLegendItemClick(code);
-      return false; // to cancel default action
-    }
-  };
+  return (
+    <div>
+      <HighchartsReact
+        highcharts={Highcharts}
+        options={getDefaultOptions(parseCovidData())}
+      />
+    </div>
+  );
+};
 
+const getDefaultOptions = (data) => {
   return {
     title: {
-      text: title,
+      text: "hi",
     },
     credits: {
       enabled: false,
@@ -55,11 +53,9 @@ export const useLineChart = ({
     plotOptions: {
       spline: {
         events: {
-          legendItemClick: function (e) {
-            return handleLegendItemClick(this.name);
-          },
+          legendItemClick: function (e) {},
         },
-        showInLegend: showLegend,
+        showInLegend: false,
         lineWidth: 0,
         marker: {
           radius: 2,
@@ -85,7 +81,6 @@ export const useLineChart = ({
               e.preventDefault();
               // console.log(this);
               const code = this.series.legendItem.textStr;
-              handleSeriesClick(code);
             },
             mouseOver: function (e) {
               // on mouse over
@@ -101,7 +96,6 @@ export const useLineChart = ({
           return formatDate(this.value);
         },
       },
-      plotLines: plotLineData,
       zoomEnabled: true,
       startOnTick: true,
       endOnTick: true,
@@ -111,6 +105,6 @@ export const useLineChart = ({
       title: { text: "Unemployment rate" },
       zoomEnabled: false,
     },
-    series: seriesData,
+    series: data,
   };
 };

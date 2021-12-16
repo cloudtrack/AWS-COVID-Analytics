@@ -6,8 +6,9 @@ countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
 const regionNames = {
   EA: "Euro Area (19 countries)",
   EU: "European Union (27 countries)",
-  OECD: "OECD (Total)",
+  EU27_2020: "European countries (2020)",
   "G-7": "Group of Seven (G7)",
+  OECD: "OECD (Total)",
 };
 
 export const getCountryName = (iso) => {

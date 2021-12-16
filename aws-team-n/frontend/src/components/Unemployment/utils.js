@@ -38,7 +38,7 @@ const getMonthFromQuarter = (i) => {
   });
 };
 
-const getTimestampFromDate = (dateStr) => {
+export const getTimestampFromDate = (dateStr) => {
   const pos = dateStr.indexOf("Q");
 
   if (pos === -1) {
@@ -55,17 +55,18 @@ const getTimestampFromDate = (dateStr) => {
  */
 export const parseChartData = (data) => {
   return data.map((item) => {
-    const chartData = item.data.map((dataItem) => {
+    const chartData = item.rates.map((dataItem, i) => {
       const timestamp = getTimestampFromDate(dataItem.time);
-      return [timestamp, parseFloat(dataItem.value)];
+      // use moving average values and round off to two decimal places to smoothen data
+      return [timestamp, +parseFloat(dataItem.moving_avg).toFixed(2)];
     });
 
     return {
       name: item.location,
       data: chartData,
-      // type: "area",
-      lineWidth: 2,
+      type: "spline",
       fillColor: "transparent",
+      lineWidth: 2,
     };
   });
 };
