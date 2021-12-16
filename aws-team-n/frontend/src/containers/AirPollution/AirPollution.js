@@ -22,8 +22,6 @@ class AirPollution extends Component{
                 {
                   this.props['graph'] == 1 ?  <Graph1/> :  <Graph2/>
                 }
-                  {/* <Graph1/> */}
-                  {/* <Graph2/> */}
               </div>
             </div>
         )

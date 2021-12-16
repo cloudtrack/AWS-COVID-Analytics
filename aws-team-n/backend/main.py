@@ -75,3 +75,7 @@ def usapredict():
 def sectorDetail():
     graph = stockMarket.sectorDetail()
     return graph
+
+if __name__ == "__main__":
+    app.debug=True
+    app.run('0.0.0.0', port=5001)
