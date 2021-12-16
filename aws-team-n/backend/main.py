@@ -2,7 +2,6 @@ from flask import Flask
 from flask_cors import CORS
 import stockMarket
 import unemployment
-import covid
 from flask import jsonify, json
 
 __name__ = "main"
