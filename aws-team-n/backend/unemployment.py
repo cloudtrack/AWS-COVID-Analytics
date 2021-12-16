@@ -11,7 +11,6 @@ def rate():
     s3 = boto3.client('s3')
     obj = s3.get_object(Bucket='curated-data-covid',
                         Key='unemployment/unemploymentAggregateByLocationFrequencyQWithAvg/2021/12/16/unemployment_rate_Q.csv')
-    # Key='unemployment/unemploymentAggregateByLocationWithAvg/2021/12/16/91637a27-d18a-4ff3-a58d-0a89c74b24bc.csv')
     result = pd.read_csv(obj['Body'])
     data = []
     for row in result.iterrows():
@@ -36,5 +35,21 @@ def youth():
         row_data = row[1]
         data.append(
             {'location': row_data['location'], 'gender': row_data['gender'], 'unemployment_rate': row_data['unemployment_rate']})
+
+    return {'body': data}
+
+
+def confirmed_cases():
+    s3 = boto3.client('s3')
+    obj = s3.get_object(Bucket='curated-data-covid',
+                        Key='unemployment/selectCovidTotalCases/2021/12/17/covid_total_august_31.csv')
+    df = pd.read_csv(obj['Body'])
+
+    data = []
+    for row in df.iterrows():
+        row_data = row[1]
+        data.append({'iso': row_data['iso'],
+                     'location': row_data['location'],
+                    'total_cases': row_data['total_cases']})
 
     return {'body': data}

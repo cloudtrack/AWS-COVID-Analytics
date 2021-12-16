@@ -3,49 +3,11 @@ import { getCountryName } from "../countries";
 import SparkLineTable from "./SparklineTable";
 import "./Sparkline.css";
 
-export const SparklineChart = ({ chartData, onClick }) => {
-  if (!chartData || chartData.length <= 0) return null;
-
-  React.useEffect(() => {
-    fetchYouthUnemployment();
-  }, []);
-
-  const [youthUnemployment, setYouthUnemployment] = React.useState([]);
-
-  const fetchYouthUnemployment = () => {
-    fetch(`http://127.0.0.1:5000/unemployment/youth`)
-      .then((response) => {
-        return response.body;
-      })
-      .then((rb) => {
-        const reader = rb.getReader();
-
-        return new ReadableStream({
-          start(controller) {
-            function push() {
-              reader.read().then(({ done, value }) => {
-                if (done) {
-                  controller.close();
-                  return;
-                }
-                controller.enqueue(value);
-                push();
-              });
-            }
-            push();
-          },
-        });
-      })
-      .then((stream) => {
-        return new Response(stream, {
-          headers: { "Content-Type": "text/html" },
-        }).text();
-      })
-      .then((result) => {
-        const json = JSON.parse(result);
-        setYouthUnemployment(json.body);
-      });
-  };
+export const SparklineChart = ({
+  chartData = [],
+  youthUnemployment = [],
+  onClick,
+}) => {
   /**
    * chartData: Array<{
    *  location: alpha-3 iso
@@ -91,7 +53,29 @@ export const SparklineChart = ({ chartData, onClick }) => {
 
   return (
     <div id="result">
-      <h1 className="title">OECD Unemployment Rate per Quarter</h1>
+      <h1 className="title">OECD Unemployment Rate per Quarter (Post-Covid)</h1>
+      <p className="subtitle">
+        Unemployment rate of OECD member countries post-COVID 19 (2020 Q4 ~
+        Present)
+      </p>
+      <div className="no-info prompt">
+        Click on a location in the table for detailed information.
+      </div>
+
+      <div className="description-container">
+        <div className="description row">
+          <p>Average: 2002~Present</p>
+        </div>
+        <div className="description row">
+          <p>Median: 2002~Present</p>
+        </div>
+      </div>
+      <div className="description">
+        <p>
+          Youth unemployment: Latest unemployment rate of youths aged 15~24 by
+          gender
+        </p>
+      </div>
       <SparkLineTable>
         <thead>
           <tr>

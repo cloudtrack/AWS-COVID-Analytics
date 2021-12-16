@@ -15,9 +15,9 @@ def index():
     return "HELLO!"
 
 
-@app.route("/covid/confirmed_cases", methods=["GET"])
+@app.route("/unemployment/covid", methods=["GET"])
 def confirmed_cases():
-    data = covid.confirmed_cases()
+    data = unemployment.confirmed_cases()
     return data
 
 

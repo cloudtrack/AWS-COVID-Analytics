@@ -13,11 +13,12 @@ import {
 import SparkLineTable from "../../components/Unemployment/SparkLine/SparklineTable";
 import SparkLine from "../../components/Unemployment/SparkLine/Sparkline";
 import { SparklineChart } from "../../components/Unemployment/SparkLine";
-import { CovidChart } from "./CovidChart";
+import { BubbleChart } from "../../components/Unemployment/BubbleChart/BubbleChart";
+import { fetchData } from "../../components/Unemployment/fetchData";
 
 const UNEMPLOYMENT_URL = "http://127.0.0.1:5000/unemployment/all";
 // "https://vgexf4h4u8.execute-api.ap-northeast-2.amazonaws.com/beta/unemployment_rate";
-const COVID_URL = "http://127.0.0.1:5000/covid/confirmed_cases";
+const YOUTH_UNEMPLOYMENT_URL = "http://127.0.0.1:5000/unemployment/youth";
 
 const MAJOR_EVENTS_URL =
   "https://gv2pn6qqx6.execute-api.ap-northeast-2.amazonaws.com/beta/major_events";
@@ -35,100 +36,35 @@ export const Unemployment = (props) => {
   // whether chart finished loading
   const [loaded, setLoaded] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState("OECD");
+  const [youthUnemployment, setYouthUnemployment] = React.useState([]);
 
   useEffect(() => {
     fetchChartData();
+    fetchYouthUnemployment();
     fetchMajorEvents();
   }, []);
 
-  const fetchChartData = () => {
-    fetch(`${UNEMPLOYMENT_URL}`)
-      .then((response) => {
-        return response.body;
-      })
-      .then((rb) => {
-        const reader = rb.getReader();
+  const fetchChartData = () => fetchData(UNEMPLOYMENT_URL, setFetchedData);
 
-        return new ReadableStream({
-          start(controller) {
-            function push() {
-              reader.read().then(({ done, value }) => {
-                if (done) {
-                  controller.close();
-                  return;
-                }
-                controller.enqueue(value);
-                push();
-              });
-            }
-            push();
-          },
-        });
-      })
-      .then((stream) => {
-        return new Response(stream, {
-          headers: { "Content-Type": "text/html" },
-        }).text();
-      })
-      .then((result) => {
-        const json = JSON.parse(result);
-        setFetchedData(json.body);
-      });
-  };
+  const fetchYouthUnemployment = () =>
+    fetchData(YOUTH_UNEMPLOYMENT_URL, setYouthUnemployment);
 
-  const fetchCovidData = (iso = "kor") => {
-    axios
-      .get(`${COVID_URL}`, { params: { iso: iso } })
-      .then((response) => {
-        console.log("\n=====covid");
-        console.log(response.body);
-        return response.body;
-      })
-      .then((rb) => {
-        const reader = rb.getReader();
-
-        return new ReadableStream({
-          start(controller) {
-            function push() {
-              reader.read().then(({ done, value }) => {
-                if (done) {
-                  controller.close();
-                  return;
-                }
-                controller.enqueue(value);
-                push();
-              });
-            }
-            push();
-          },
-        });
-      })
-      .then((stream) => {
-        return new Response(stream, {
-          headers: { "Content-Type": "text/html" },
-        }).text();
-      })
-      .then((result) => {
-        const json = JSON.parse(result);
-        // setCovidData(json.body);
-      });
-  };
-
-  const fetchMajorEvents = () => {
-    axios
-      .get(`${MAJOR_EVENTS_URL}`)
-      .then((response) => {
-        console.log("Successfully fetched major events data!\n");
-        return response.data;
-      })
-      .then(({ body }) => {
-        const data = body;
-        setMajorEvents(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  const fetchMajorEvents = () => fetchData(MAJOR_EVENTS_URL, setMajorEvents);
+  // {
+  //   axios
+  //     .get(`${MAJOR_EVENTS_URL}`)
+  //     .then((response) => {
+  //       console.log("Successfully fetched major events data!\n");
+  //       return response.data;
+  //     })
+  //     .then(({ body }) => {
+  //       const data = body;
+  //       setMajorEvents(data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
   const getSecondaryChartData = () => {
     if (fetchedData.length > 0) {
@@ -191,9 +127,14 @@ export const Unemployment = (props) => {
   return (
     <div className="chart-container">
       <div className="chart">
-        <SparklineChart chartData={fetchedData} onClick={onSelectLocation} />
+        <SparklineChart
+          chartData={fetchedData}
+          youthUnemployment={youthUnemployment}
+          onClick={onSelectLocation}
+        />
       </div>
       <div className="chart">
+        <BubbleChart youthUnemployment={youthUnemployment} />
         <HighchartsReact highcharts={Highcharts} options={detailedOptions} />
         <HighchartsReact highcharts={Highcharts} options={oecdOptions} />
         <HighchartsReact highcharts={Highcharts} options={g7Options} />

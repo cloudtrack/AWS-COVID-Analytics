@@ -3,10 +3,42 @@
 }
 
 .header-title {
-  margin-top: 30px;
+  margin-top: 20px;
   text-align: center;
   font-size: 24px;
   font-weight: 800;
+}
+
+.subtitle {
+  text-align: left;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.prompt {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.description-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.description {
+  margin-left: 10px;
+  margin-right: 10px;
+  text-align: left;
+  font-size: 12px;
+  color: gray;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.row {
+  width: 50%;
 }
 
 tr {
