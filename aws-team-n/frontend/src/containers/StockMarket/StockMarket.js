@@ -23,6 +23,6 @@ class StockMarket extends Component{
             </div>
         )
     }
-};
+}
 
 export default StockMarket;
