@@ -111,7 +111,7 @@ class Graph2 extends Component{
                 ret['borderColor'] = i < 3 ? `rgba(255, 150, 132, ${(i+2)/4})` : `rgba(132, 99, 255, ${1/5 + (i%3+1)/7})`
                 ret['backgroundColor'] =  i < 3 ? `rgba(255, 150, 132, ${(i+2)/4})` : `rgba(132, 99, 255, ${1/5 + (i%3+1)/7})`
                 return ret
-            }).concat(seoul_data[idx])
+            })//.concat(seoul_data[idx])
         })
         const labels = lbls //Array(startingIdx).fill(0).concat(lbls) # TODO uncomment this for all dates and baseline
 
