@@ -2,7 +2,6 @@ import "./Unemployment.css";
 import React, { useEffect, useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
-import axios from "axios";
 import { useLineChart } from "../../components/Unemployment/LineChart/useLineChart";
 import {
   EACountries,
@@ -17,7 +16,7 @@ import { BubbleChart } from "../../components/Unemployment/BubbleChart/BubbleCha
 import { fetchData } from "../../components/Unemployment/fetchData";
 
 const UNEMPLOYMENT_URL = "http://127.0.0.1:5000/unemployment/all";
-// "https://vgexf4h4u8.execute-api.ap-northeast-2.amazonaws.com/beta/unemployment_rate";
+
 const YOUTH_UNEMPLOYMENT_URL = "http://127.0.0.1:5000/unemployment/youth";
 
 const MAJOR_EVENTS_URL =
@@ -31,7 +30,6 @@ const MAJOR_EVENTS_URL =
 export const Unemployment = (props) => {
   const [fetchedData, setFetchedData] = useState([]);
   const [majorEvents, setMajorEvents] = useState([]);
-  const [covidData, setCovidData] = useState([]);
 
   // whether chart finished loading
   const [loaded, setLoaded] = useState(false);
@@ -50,21 +48,6 @@ export const Unemployment = (props) => {
     fetchData(YOUTH_UNEMPLOYMENT_URL, setYouthUnemployment);
 
   const fetchMajorEvents = () => fetchData(MAJOR_EVENTS_URL, setMajorEvents);
-  // {
-  //   axios
-  //     .get(`${MAJOR_EVENTS_URL}`)
-  //     .then((response) => {
-  //       console.log("Successfully fetched major events data!\n");
-  //       return response.data;
-  //     })
-  //     .then(({ body }) => {
-  //       const data = body;
-  //       setMajorEvents(data);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
 
   const getSecondaryChartData = () => {
     if (fetchedData.length > 0) {

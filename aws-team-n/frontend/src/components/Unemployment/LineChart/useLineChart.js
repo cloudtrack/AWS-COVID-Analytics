@@ -20,7 +20,6 @@ export const useLineChart = ({
   const plotLineData = parsePlotLines(plotLines);
 
   const handleSeriesClick = (code) => {
-    console.log("click:");
     // callback function
     if (onSeriesClick) onSeriesClick(code);
   };
@@ -36,11 +35,15 @@ export const useLineChart = ({
   return {
     title: {
       text: title,
+      style: {
+        fontWeight: "bold",
+      },
     },
     credits: {
       enabled: false,
     },
     chart: {
+      backgroundColor: "transparent",
       type: "spline",
       zoomType: "xy",
     },
@@ -51,6 +54,17 @@ export const useLineChart = ({
       itemMarginTop: 2,
       itemMarginBottom: 2,
     },
+    colors: [
+      "rgba(54, 162, 235, 1)",
+      "rgba(75, 192, 192, 1)",
+      "rgba(153, 102, 255, 1)",
+      "rgba(255, 99, 132, 1)",
+      "rgba(165, 109, 97, 1)",
+      "rgba(255, 206, 86, 1)",
+      "rgba(200, 200, 92, 1)",
+      "rgba(201, 203, 207, 1)",
+    ],
+
     plotOptions: {
       spline: {
         events: {
@@ -59,7 +73,7 @@ export const useLineChart = ({
           },
         },
         showInLegend: showLegend,
-        lineWidth: 0,
+        // lineWidth: 0,
         marker: {
           radius: 2,
           states: {
@@ -92,13 +106,13 @@ export const useLineChart = ({
       type: "datetime",
       labels: {
         formatter: function (self) {
-          return formatDate(this.value);
+          return formatDate(this.value, false);
         },
       },
       plotLines: plotLineData,
       zoomEnabled: true,
-      startOnTick: true,
-      endOnTick: true,
+      startOnTick: false,
+      endOnTick: false,
       showLastLabel: true,
     },
     yAxis: {

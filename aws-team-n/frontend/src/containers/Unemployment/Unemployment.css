@@ -1,14 +1,16 @@
 .chart-container {
   display: flex;
   justify-content: space-evenly;
-  margin: 20px 0px;
   height: 100%;
   text-align: center;
+  padding: 20px 0px;
 }
 
 .chart {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  margin-bottom: 20px;
+  padding: 0px 20px 0px 20px;
+  background-color: rgb(253, 251, 249);
+  margin-bottom: 50px;
 }

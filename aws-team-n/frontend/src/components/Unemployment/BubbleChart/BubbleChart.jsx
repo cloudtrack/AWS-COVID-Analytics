@@ -4,6 +4,7 @@ import "./BubbleChart.css";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import HC_more from "highcharts/highcharts-more";
+import { fetchData } from "../fetchData";
 HC_more(Highcharts);
 
 const COVID_URL = `http://127.0.0.1:5000/unemployment/covid`;
@@ -38,40 +39,7 @@ export const BubbleChart = (props) => {
     fetchCovidData();
   }, []);
 
-  const fetchCovidData = () => {
-    fetch(COVID_URL)
-      .then((response) => {
-        return response.body;
-      })
-      .then((rb) => {
-        const reader = rb.getReader();
-
-        return new ReadableStream({
-          start(controller) {
-            function push() {
-              reader.read().then(({ done, value }) => {
-                if (done) {
-                  controller.close();
-                  return;
-                }
-                controller.enqueue(value);
-                push();
-              });
-            }
-            push();
-          },
-        });
-      })
-      .then((stream) => {
-        return new Response(stream, {
-          headers: { "Content-Type": "text/html" },
-        }).text();
-      })
-      .then((result) => {
-        const json = JSON.parse(result);
-        setCovidData(json.body);
-      });
-  };
+  const fetchCovidData = () => fetchData(COVID_URL, setCovidData);
 
   const parseBubbleChartData = () => {
     // filter out oecd countries
@@ -118,6 +86,7 @@ const getChartOptions = (data, oecdRate = 0) => {
       type: "bubble",
       plotBorderWidth: 1,
       zoomType: "xy",
+      backgroundColor: "transparent",
     },
     credits: {
       enabled: false,
@@ -165,6 +134,7 @@ const getChartOptions = (data, oecdRate = 0) => {
             x: 5,
             textAlign: "left",
             style: {
+              color: "gray",
               fontStyle: "italic",
             },
             text: "OECD youth unemployment rate",

@@ -88,3 +88,41 @@ thead th {
   box-shadow: 1px 1px 2px #888;
   padding: 8px;
 }
+
+/* youth unemployment legend */
+
+.legend-container {
+  display: flex;
+  justify-content: flex-end;
+}
+.legend {
+  display: flex;
+  width: 25%;
+  margin-bottom: 10px;
+}
+.legend li {
+  color: gray;
+  float: left;
+  font-weight: 500;
+  font-size: 12px;
+  text-align: left;
+}
+.legend span {
+  float: left;
+  height: 12px;
+  width: 12px;
+  margin: 2px;
+  margin-right: 10px;
+  text-align: left;
+}
+/* your colors */
+.legend .women {
+  background-color: rgba(255, 99, 132, 0.5);
+  border: 1px solid;
+  border-color: rgba(255, 99, 132, 1);
+}
+.legend .men {
+  background-color: rgba(54, 162, 235, 0.5);
+  border: 1px solid;
+  border-color: rgba(75, 192, 192, 1);
+}

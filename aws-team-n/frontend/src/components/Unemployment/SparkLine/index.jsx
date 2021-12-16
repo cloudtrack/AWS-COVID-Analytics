@@ -35,7 +35,7 @@ export const SparklineChart = ({
         <tr
           key={item.location}
           onClick={() => onClick(item.location)}
-          onMouseEnter={() => setHover(true)}
+          onMouseOver={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
           style={{
             backgroundColor: hover ? "rgba(255, 206, 86, 0.2)" : "transparent",
@@ -76,6 +76,18 @@ export const SparklineChart = ({
           gender
         </p>
       </div>
+
+      <div className="legend-container">
+        <ul class="legend">
+          <li>
+            <span class="women"></span> Women
+          </li>
+          <li>
+            <span class="men"></span> Men
+          </li>
+        </ul>
+      </div>
+
       <SparkLineTable>
         <thead>
           <tr>
