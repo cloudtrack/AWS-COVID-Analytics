@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 import { GeoJSON, MapContainer, TileLayer, Marker, Tooltip, Popup } from "react-leaflet";
+import * as L from "leaflet";
+
 import {Slider} from '@mui/material';
 import 'leaflet/dist/leaflet.css';
 import './graph1.css'
@@ -38,6 +40,8 @@ class Graph1 extends Component{
             "features": features
         }
         this.setState({data: data})
+
+        console.log(this.refs.map);
     }
 
     getColor = (d) => {
@@ -82,6 +86,12 @@ class Graph1 extends Component{
     }
 
     render(){
+        const outerBounds = [
+                [84.227542, -168.776165],
+                [-84.999685, 188.872239],
+              ]
+
+
         return (
             <div>
                 <h1 style={{ textAlign: "center" }}>My Map</h1>
@@ -89,13 +99,15 @@ class Graph1 extends Component{
                     this.state.loading ? <h1>LOADING</h1>
                     :
                     <div style={{alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
-                        <div style={{width: "80%", borderWidth: 1, margin: 50}}>
+                        <div style={{width: "80%", borderWidth: 1, margin: 50, backgroundColor: 'red'}}>
                             <Slider defaultValue={0} step={1} min={0} max={MAX}
-                            valueLabelDisplay="auto" onChange={!this.state.loading && this.handleSliderChange}
+                            valueLabelDisplay="off" onChange={this.handleSliderChange}
                             />
                         </div>
                         <h3>{this.state.shortDate}</h3>
-                        <MapContainer style={{ height: "80vh", padding: 50, backgroundColor: '#F8F8F8' }} zoom={2} center={[40.737, -73.923]} >
+                        <MapContainer style={{ height: "80vh", padding: 50, backgroundColor: '#F8F8F8' }} zoom={1.5}
+                            center={[20.955188, 11.566430]} maxZoom={5} minZoom={0} bounds={outerBounds} maxBounds={outerBounds}
+                        >
                             <TileLayer
                                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                                 url="https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png"
