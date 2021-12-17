@@ -1,4 +1,6 @@
 .ipynb_checkpoints/
+air_pollution_notebook/*
+aws-team-n/backend/venv/*
 venv/
 .DS_STORE
 node_modules

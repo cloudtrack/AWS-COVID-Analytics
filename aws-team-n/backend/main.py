@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_cors import CORS
+import airPollution
 import stockMarket
 import unemployment
 from flask import jsonify, json
@@ -13,6 +14,20 @@ CORS(app)
 def index():
     return "HELLO!"
 
+# @app.route("/ap-graph1/<date>")
+# def apGraph1(date):
+#     print("HELLO")
+#     # data = airPollution.begin()
+#     graph = airPollution.graph1(date)
+#     # response = Flask.json_encoder(graph)
+#     # response.headers.add('Access-Control-Allow-Origin', '*')
+#     return graph
+#     # return "AIR POLLUTION"
+
+@app.route("/ap-graph1")
+def apGraph():
+    graphData = airPollution.getData("o3")
+    return graphData
 
 @app.route("/unemployment/covid", methods=["GET"])
 def confirmed_cases():
@@ -90,3 +105,7 @@ def usapredict():
 def sectorDetail():
     graph = stockMarket.sectorDetail()
     return graph
+
+# if __name__ == "__main__":
+#     app.debug=True
+#     app.run('0.0.0.0', port=5001)

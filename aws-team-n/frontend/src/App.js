@@ -14,7 +14,8 @@ function App() {
         <NavBar />
         <Routes>
           <Route path="/main" element={<MainPage />} />
-          <Route path="/air-pollution" element={<AirPollution />} />
+          <Route path="/air-pollution" element={<AirPollution graph={1}/>} />
+          <Route path="/air-pollution-graph2" element={<AirPollution graph={2} />} />
           <Route path="/stock-market" element={<StockMarket />} />
           <Route path="/unemployment" element={<Unemployment />} />
           <Route path="/" element={<Navigate replace to="/main" />} />
