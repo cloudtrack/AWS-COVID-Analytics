@@ -105,8 +105,8 @@ const USPredict = () => {
             },
           },
         }}
-        width={640}
-        height={450}
+        width={600}
+        height={420}
       />
     </div>
   );

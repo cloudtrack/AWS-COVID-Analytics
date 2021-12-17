@@ -101,8 +101,8 @@ const Africa = () => {
             },
           },
         }}
-        width={350}
-        height={330}
+        width={320}
+        height={300}
       />
     </div>
   );
