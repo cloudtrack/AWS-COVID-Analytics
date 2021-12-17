@@ -14,19 +14,20 @@ CORS(app)
 def index():
     return "HELLO!"
 
-@app.route("/ap-graph1/<date>")
-def apGraph1(date):
-    print("HELLO")
-    # data = airPollution.begin()
-    graph = airPollution.graph1(date)
-    # response = Flask.json_encoder(graph)
-    # response.headers.add('Access-Control-Allow-Origin', '*')
-    return graph
-    # return "AIR POLLUTION"
+# @app.route("/ap-graph1/<date>")
+# def apGraph1(date):
+#     print("HELLO")
+#     # data = airPollution.begin()
+#     graph = airPollution.graph1(date)
+#     # response = Flask.json_encoder(graph)
+#     # response.headers.add('Access-Control-Allow-Origin', '*')
+#     return graph
+#     # return "AIR POLLUTION"
 
-# @app.route("/ap-graph1")
-# def apGraph():
-#     graphData = airPollution.g
+@app.route("/ap-graph1")
+def apGraph():
+    graphData = airPollution.getData("o3")
+    return graphData
 
 @app.route("/unemployment/covid", methods=["GET"])
 def confirmed_cases():

@@ -64,15 +64,26 @@ class Graph1 extends Component{
         country: ''
     }
     componentDidMount(){
+        this.setState({loading: true})
         const date = "2021-04-29"
-        var features = source['features'].filter((val) => {
-            return val['properties']['date'] == date || val['properties']['date'] == null
-        })
-        const data = {
-            "type": "FeatureCollection",
-            "features": features
-        }
-        this.setState({data: data})
+        fetch(`http://127.0.0.1:5000/ap-graph1`)
+            .then(resp =>{
+
+                resp.json().then(dt => {
+                    this.setState({loading: false})
+                    var features = dt['features'].filter((val) => {
+                        return val['properties']['date'] == date || val['properties']['date'] == null
+                    })
+                    const data = {
+                        "type": "FeatureCollection",
+                        "features": features
+                    }
+                    this.setState({data: data})
+                })
+            }
+            )
+
+
 
         // console.log(this.refs.map);
     }
