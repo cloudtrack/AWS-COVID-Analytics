@@ -190,7 +190,7 @@ class Graph1 extends Component{
 
                                 }}
                             />
-                            <Info position={"topright"}/>
+                            {/* <Info position={"topright"}/> */}
                             <Legend position={"bottomright"}/>
                         </MapContainer>
                     </div>

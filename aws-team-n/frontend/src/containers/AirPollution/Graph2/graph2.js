@@ -79,22 +79,23 @@ class Graph2 extends Component{
             return data['date']
         })
         const startingIdx = seoul_labels.findIndex(l => l == lbls[0])
+        console.log(startingIdx)
         const seoul_data = {
             'NO2': {
                 label: "actual observations",
-                data: seoul_air.map(data => {data[' no2']}).splice(0, startingIdx+1), //.concat(datasets[0]),
+                data: seoul_air.map(data => data[' no2']), //.concat(datasets[0]),
                 borderColor: 'rgb(150, 150, 150)',
                 backgroundColor: 'rgb(150, 150, 150)'
             },
             'O3': {
                 label: "actual observations",
-                data: seoul_air.map(data => {data[' o3']}).splice(0, startingIdx+1), // .concat(datasets[0]),
+                data: seoul_air.map(data => data[' o3']), // .concat(datasets[0]),
                 borderColor: 'rgb(150, 150, 150)',
                 backgroundColor: 'rgb(150, 150, 150)'
             },
             'SO2': {
                 label: "actual observations",
-                data: seoul_air.map(data => {data[' so2']}).splice(0, startingIdx+1), //.concat(datasets[0]),
+                data: seoul_air.map(data => data[' so2']), //.concat(datasets[0]),
                 borderColor: 'rgb(150, 150, 150)',
                 backgroundColor: 'rgb(150, 150, 150)'
             },
@@ -107,11 +108,11 @@ class Graph2 extends Component{
                 })
                 const ret = {}
                 ret['label'] = getFileName(i, idx)
-                ret['data'] = [].fill(0, 0, startingIdx).concat(values)
+                ret['data'] = values
                 ret['borderColor'] = i < 3 ? `rgba(255, 150, 132, ${(i+2)/4})` : `rgba(132, 99, 255, ${1/5 + (i%3+1)/7})`
                 ret['backgroundColor'] =  i < 3 ? `rgba(255, 150, 132, ${(i+2)/4})` : `rgba(132, 99, 255, ${1/5 + (i%3+1)/7})`
                 return ret
-            })//.concat(seoul_data[idx])
+            }).concat(seoul_data[idx])
         })
         const labels = lbls //Array(startingIdx).fill(0).concat(lbls) # TODO uncomment this for all dates and baseline
 
@@ -130,7 +131,7 @@ class Graph2 extends Component{
             },
             'seoul': {
                 labels,
-                datasets: seoul_data
+                datasets: datasets[3]
             }
           };
 
@@ -163,16 +164,10 @@ class Graph2 extends Component{
             };
             return options
         }
-
-        const onAnimation = () => {
-            console.log("He")
-        }
-
-
         return (
             <div style={{alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
                 <div className="so2-chart" style={{height: "600px", width: "900px", marginBottom: "50px"}}>
-                    {this.state.data['SO2'] && <Line options={getOptions('SO2')} data={this.state.data['SO2']} onAnimationEnd={onAnimation()} />}
+                    {this.state.data['SO2'] && <Line options={getOptions('SO2')} data={this.state.data['SO2']} onScroll={() => console.log('scroll')}/>}
                 </div>
                 <div className="o3-chart" style={{height: "600px", width: "900px", marginBottom: "50px"}}>
                     {this.state.data['O3'] && <Line options={getOptions('O3')} data={this.state.data['O3']} />}
