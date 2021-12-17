@@ -11,11 +11,11 @@ class AirPollution extends Component{
         return (
             <div>
               <div className="Tabs">
-                <li className={path == "/main" && "active"}>
-                  <a href="/air-pollution">COVID</a>
+                <li className={path == "/air-pollution" && "active"}>
+                  <a href="/air-pollution">Air Quality</a>
                 </li>
-                <li className={"active"}>
-                  <a href="/air-pollution-graph2">Air</a>
+                <li className={path == "/air-pollution-graph2" &&"active"}>
+                  <a href="/air-pollution-graph2">Prediction</a>
                 </li>
               </div>
               <div>
