@@ -1,57 +1,57 @@
-.title{
-    margin-bottom: 40px;
+.title {
+  margin-bottom: 40px;
 }
-.no-info{
-    display: flex;
-    flex-direction: column;
-    margin: 70px 10px 10px 10px;
-    padding: 30px 20px;
-    font-size: 16pt;
-    font-weight: 600;
-    background-color:#ffa798;
-    border-radius: 10px;
-    width: 600px;
+.no-info {
+  display: flex;
+  flex-direction: column;
+  margin: 70px 10px 10px 10px;
+  padding: 30px 20px;
+  font-size: 16pt;
+  font-weight: 600;
+  background-color: #ffa798;
+  border-radius: 10px;
+  width: 600px;
 }
-.data-date{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+.data-date {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
-.data-day{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+.data-day {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
-.item{
-    display: flex;
-    flex-direction: column;
-    background-color: rgb(235, 235, 133);
-    border-radius: 5%;
-    padding: 30px 0;
-    margin: 10px 20px;
-    height:150px;
-    width: 190px;
-    vertical-align: middle;
+.item {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(235, 235, 133);
+  border-radius: 5%;
+  padding: 30px 0;
+  margin: 10px 20px;
+  height: 150px;
+  width: 190px;
+  vertical-align: middle;
 }
-.tag{
-    padding-bottom: 10px;
-    font-size: 14pt;
-    font-weight: bold;
-    margin: 0 10px;
+.tag {
+  padding-bottom: 10px;
+  font-size: 14pt;
+  font-weight: bold;
+  margin: 0 10px;
 }
-.date{
-    margin: 10px;
-    font-size: 14pt;
+.date {
+  margin: 10px;
+  font-size: 14pt;
 }
-.day{
-    margin: 10px;
-    font-size: 14pt;
+.day {
+  margin: 10px;
+  font-size: 14pt;
 }
-.info{
-    font-size: 11pt;
-    text-align: left;
-    margin: 20px 20px 0 20px;
+.info {
+  font-size: 11pt;
+  text-align: left;
+  margin: 20px 20px 0 20px;
 }
-.info-detail{
-    margin: 10px 0;
+.info-detail {
+  margin: 10px 0;
 }

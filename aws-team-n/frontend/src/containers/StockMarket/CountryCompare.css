@@ -1,16 +1,16 @@
-.CountryCompare{
-    width: 50%;
+.CountryCompare {
+  width: 50%;
 }
-.title{
-    margin-top: 30px;
-    text-align: center;
-    font-size: 24px;
-    font-weight: 800;
+.title {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 800;
 }
-.graph{
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-evenly;
-    row-gap: 20px;
-    }    
+.graph {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-evenly;
+  row-gap: 20px;
+}

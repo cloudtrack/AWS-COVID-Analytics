@@ -42,10 +42,26 @@ import so2_p90 from "../data/aws-forecasts-so2_p90_df.json"
 import seoul_air from "../data/seoul-air-quality-no-blanks.json"
 
 
-const list = {
+const nameList = {
     'NO2': [no2_covid_p10, no2_covid_p50, no2_covid_p90, no2_p10, no2_p50, no2_p90],
     'SO2': [so2_covid_p10, so2_covid_p50, so2_covid_p90, so2_p10, so2_p50, so2_p90],
     'O3': [o3_covid_p10, o3_covid_p50, o3_covid_p90, o3_p10, o3_p50, o3_p90]
+}
+
+const getFileName = (i, name) => {
+    var type = ""
+    if ((i % 3) == 0){
+        type = " p10 "
+    } else if((i % 3) == 1){
+        type = " p50 "
+    } else {
+        type = " p90 "
+    }
+    name += type
+    if (i < 3){
+        name += "(w/ covid)"
+    }
+    return name
 }
 class Graph2 extends Component{
     state = {
@@ -54,24 +70,20 @@ class Graph2 extends Component{
             'SO2': null,
             'O3': null
         },
-        s_data: null
+        s_data: null,
+        list: {
+            'NO2': [no2_covid_p10, no2_covid_p50, no2_covid_p90, no2_p10, no2_p50, no2_p90],
+            'SO2': [so2_covid_p10, so2_covid_p50, so2_covid_p90, so2_p10, so2_p50, so2_p90],
+            'O3': [o3_covid_p10, o3_covid_p50, o3_covid_p90, o3_p10, o3_p50, o3_p90]
+        },
+        listName: {
+            'NO2': ['no2_covid_p10', 'no2_covid_p50', 'no2_covid_p90', 'no2_p10', 'no2_p50', 'no2_p90'],
+            'SO2': ['so2_covid_p10', 'so2_covid_p50', 'so2_covid_p90', 'so2_p10', 'so2_p50', 'so2_p90'],
+            'O3': ['o3_covid_p10', 'o3_covid_p50', 'o3_covid_p90', 'o3_p10', 'o3_p50', 'o3_p90']
+        }
     }
     componentDidMount(){
-        const getFileName = (i, name) => {
-            var type = ""
-            if ((i % 3) == 0){
-                type = "p10 "
-            } else if((i % 3) == 1){
-                type = "p50 "
-            } else {
-                type = "p90 "
-            }
-            name += type
-            if (i < 3){
-                name += "(w/ covid)"
-            }
-            return name
-        }
+
         const lbls = no2_covid_p10.map(data => {
             return data['Timestamp'].split('T')[0]
         })
@@ -79,39 +91,40 @@ class Graph2 extends Component{
             return data['date']
         })
         const startingIdx = seoul_labels.findIndex(l => l == lbls[0])
+        console.log(startingIdx)
         const seoul_data = {
             'NO2': {
                 label: "actual observations",
-                data: seoul_air.map(data => {data[' no2']}).splice(0, startingIdx+1), //.concat(datasets[0]),
+                data: seoul_air.map(data => data[' no2']), //.concat(datasets[0]),
                 borderColor: 'rgb(150, 150, 150)',
                 backgroundColor: 'rgb(150, 150, 150)'
             },
             'O3': {
                 label: "actual observations",
-                data: seoul_air.map(data => {data[' o3']}).splice(0, startingIdx+1), // .concat(datasets[0]),
+                data: seoul_air.map(data => data[' o3']), // .concat(datasets[0]),
                 borderColor: 'rgb(150, 150, 150)',
                 backgroundColor: 'rgb(150, 150, 150)'
             },
             'SO2': {
                 label: "actual observations",
-                data: seoul_air.map(data => {data[' so2']}).splice(0, startingIdx+1), //.concat(datasets[0]),
+                data: seoul_air.map(data => data[' so2']), //.concat(datasets[0]),
                 borderColor: 'rgb(150, 150, 150)',
                 backgroundColor: 'rgb(150, 150, 150)'
             },
         }
 
         const datasets = ['NO2', 'SO2', 'O3'].map((idx) => {
-            return list[idx].map((file, i) => {
+            return this.state.list[idx].map((file, i) => {
                 const values = file.map(data => {
                     return Number(data['Value'])
                 })
                 const ret = {}
                 ret['label'] = getFileName(i, idx)
-                ret['data'] = [].fill(0, 0, startingIdx).concat(values)
+                ret['data'] = values
                 ret['borderColor'] = i < 3 ? `rgba(255, 150, 132, ${(i+2)/4})` : `rgba(132, 99, 255, ${1/5 + (i%3+1)/7})`
                 ret['backgroundColor'] =  i < 3 ? `rgba(255, 150, 132, ${(i+2)/4})` : `rgba(132, 99, 255, ${1/5 + (i%3+1)/7})`
                 return ret
-            })//.concat(seoul_data[idx])
+            }).concat(seoul_data[idx])
         })
         const labels = lbls //Array(startingIdx).fill(0).concat(lbls) # TODO uncomment this for all dates and baseline
 
@@ -130,15 +143,22 @@ class Graph2 extends Component{
             },
             'seoul': {
                 labels,
-                datasets: seoul_data
+                datasets: datasets[3]
             }
           };
-
         this.setState({data: data})
+    }
+
+    updateGraph = (i, idx) => {
+        console.log(i, idx)
+        const newList = this.state.list[idx]
 
     }
 
+
+
     render(){
+
         const getOptions = (idx) => {
             const options = {
                 responsive: true,
@@ -163,16 +183,29 @@ class Graph2 extends Component{
             };
             return options
         }
+        const Legend =
+            ['NO2', 'SO2'].map((idx) => {
+                return (
+                    <div>
+                        {[0, 1, 2, 3, 4, 5].map((i) => {
+                        const name = getFileName(i, idx)
+                        return (
+                            <div onClick={() => this.updateGraph(i, idx)}>
+                                {name}
+                            </div>
+                        )
+                        })}
+                    </div>
+                )
+            })
 
-        const onAnimation = () => {
-            console.log("He")
-        }
-
-
+        console.log(Legend[0])
+        const LegendSO2 = Legend[0]
         return (
             <div style={{alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
+                {/* {LegendSO2} */}
                 <div className="so2-chart" style={{height: "600px", width: "900px", marginBottom: "50px"}}>
-                    {this.state.data['SO2'] && <Line options={getOptions('SO2')} data={this.state.data['SO2']} onAnimationEnd={onAnimation()} />}
+                    {this.state.data['SO2'] && <Line options={getOptions('SO2')} data={this.state.data['SO2']}/>}
                 </div>
                 <div className="o3-chart" style={{height: "600px", width: "900px", marginBottom: "50px"}}>
                     {this.state.data['O3'] && <Line options={getOptions('O3')} data={this.state.data['O3']} />}

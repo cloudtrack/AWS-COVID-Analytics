@@ -33,16 +33,22 @@ def begin():
     return data
 
 
-def graph1(date):
-    print("start", time.localtime())
+def getData(idx):
     s3_client = boto3.client("s3")
-    obj = s3_client.get_object(Bucket='curated-data-covid', Key=f'air-pollution/o3/{date}.geojson')
+    obj = s3_client.get_object(Bucket='curated-data-covid', Key=f'air-pollution/o3.geojson')
     result = obj['Body'].read()
-    # result = "hello"
-    # df = gpd.read_file("./data/o3.geojson")
-    # result = df[df['date'] == date].to_json()
-    # print("done", time.localtime())
     return result
+
+# def graph1(date):
+#     print("start", time.localtime())
+#     s3_client = boto3.client("s3")
+#     obj = s3_client.get_object(Bucket='curated-data-covid', Key=f'air-pollution/o3/{date}.geojson')
+#     result = obj['Body'].read()
+#     # result = "hello"
+#     # df = gpd.read_file("./data/o3.geojson")
+#     # result = df[df['date'] == date].to_json()
+#     # print("done", time.localtime())
+#     return result
 
 
 # def graph1(data):
