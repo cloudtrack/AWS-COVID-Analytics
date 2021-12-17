@@ -1,24 +1,37 @@
+.WebsiteTitle {
+  display: flex;
+  padding: 30px 50px;
+  font-weight: 800;
+  font-size: 30px;
+  justify-content: left;
+}
 .Tabs {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  background-color: grey;
+  padding: 0 45px;
+  margin-bottom: 10px;
 }
 .active {
-  background-color: darkgrey;
+  background-color: #ffedea;
 }
 li {
   list-style: none;
   width: 100%;
+  border-bottom-style: solid;
+  margin:5px;
+  color:#ff5233;
 }
 li a {
   display: block;
   text-decoration: none;
   list-style: none;
   padding: 15px;
-  color: black;
+  font-weight: 500;
+  font-size: 18px;
+  color: #ff5233;
 }
 li a:hover,
 a:focus {
-  background-color: darkgray;
+  background-color: #ffedea;
 }
