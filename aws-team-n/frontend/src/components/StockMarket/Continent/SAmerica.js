@@ -123,7 +123,7 @@ const SAmerica = () => {
             },
           },
         }}
-        width={350}
+        width={320}
         height={330}
       />
     </div>

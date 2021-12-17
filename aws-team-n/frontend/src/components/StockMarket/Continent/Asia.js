@@ -159,8 +159,8 @@ const Asia = () => {
             },
           },
         }}
-        width={350}
-        height={360}
+        width={320}
+        height={330}
       />
     </div>
   );
