@@ -5,6 +5,9 @@ const NavBar = () => {
   const path = window.location.pathname;
   return (
     <div className="NavBar">
+      <div className="WebsiteTitle">
+        COVID-19 Dashboard
+      </div>
       <div className="Tabs">
         <li className={path === "/main" && "active"}>
           <a href="/main">COVID</a>
