@@ -7,7 +7,7 @@ import './graph1.css'
 
 import source from '../data/o3.json';
 
-const MAX = 365
+const MAX = 353
 
 // Classes used by Leaflet to position controls
 const POSITION_CLASSES = {
@@ -61,31 +61,42 @@ class Graph1 extends Component{
         loading: false,
         value: 0,
         data: null,
-        country: ''
+        country: 'neverland'
     }
     componentDidMount(){
-        this.setState({loading: true})
-        const date = "2021-04-29"
-        fetch(`http://127.0.0.1:5000/ap-graph1`)
-            .then(resp =>{
+        const date = "2020-12-31"
 
-                resp.json().then(dt => {
-                    this.setState({loading: false})
-                    var features = dt['features'].filter((val) => {
-                        return val['properties']['date'] == date || val['properties']['date'] == null
-                    })
-                    const data = {
-                        "type": "FeatureCollection",
-                        "features": features
-                    }
-                    this.setState({data: data})
-                })
-            }
-            )
+        // fetch version
+        // this.setState({loading: true})
+        // fetch(`http://127.0.0.1:5000/ap-graph1`)
+        //     .then(resp =>{
+
+        //         resp.json().then(dt => {
+        //             this.setState({loading: false})
+        //             var features = dt['features'].filter((val) => {
+        //                 return val['properties']['date'] == date || val['properties']['date'] == null
+        //             })
+        //             const data = {
+        //                 "type": "FeatureCollection",
+        //                 "features": features
+        //             }
+        //             this.setState({data: data})
+        //         })
+        //     }
+        //     )
+
+        // local version
+        var features = source['features'].filter((val) => {
+            return val['properties']['date'] == date || val['properties']['date'] == null
+        })
+        const data = {
+            "type": "FeatureCollection",
+            "features": features
+        }
+        this.setState({data: data})
 
 
-
-        // console.log(this.refs.map);
+        // this.setState({max: })
     }
 
 
