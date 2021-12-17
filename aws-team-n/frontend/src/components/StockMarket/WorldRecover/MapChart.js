@@ -6,15 +6,13 @@ import {
   Geographies,
   Geography,
   Sphere,
-  Graticule
+  Graticule,
 } from "react-simple-maps";
 
 const geoUrl =
   "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
 
-const colorScale = scaleLinear()
-  .domain([1, 284])
-  .range(["#ffedea", "#ff5233"]);
+const colorScale = scaleLinear().domain([1, 284]).range(["#ffedea", "#ff5233"]);
 
 const MapChart = ({ setTooltipContent, setCountry }) => {
   const [data, setData] = useState([]);
@@ -30,12 +28,12 @@ const MapChart = ({ setTooltipContent, setCountry }) => {
       data-tip=""
       projectionConfig={{
         rotate: [-10, 0, 0],
-        scale: 147
+        scale: 147,
       }}
     >
       <Sphere stroke="#E4E5E6" strokeWidth={0.5} />
       <Graticule stroke="#E4E5E6" strokeWidth={0.5} />
-      {data.length > 0 &&
+      {data.length > 0 && (
         <Geographies geography={geoUrl}>
           {({ geographies }) =>
             geographies.map((geo) => {
@@ -47,12 +45,15 @@ const MapChart = ({ setTooltipContent, setCountry }) => {
                   fill={d ? colorScale(d["Start to Cover"]) : "#F5F4F6"}
                   onMouseEnter={() => {
                     const { NAME } = geo.properties;
-                    if (d !== undefined && d["Start to Cover"] === '')
-                      setTooltipContent(`${NAME} : CANNOT MEASURE (Economic downturn started before COVID)`);
+                    if (d !== undefined && d["Start to Cover"] === "")
+                      setTooltipContent(
+                        `${NAME} : CANNOT MEASURE (Economic downturn started before COVID)`,
+                      );
                     else if (d !== undefined)
-                      setTooltipContent(`${NAME} : ${d["Start to Cover"]} days`);
-                    else
-                      setTooltipContent("")
+                      setTooltipContent(
+                        `${NAME} : ${d["Start to Cover"]} days`,
+                      );
+                    else setTooltipContent("");
                   }}
                   onMouseLeave={() => {
                     setTooltipContent("");
@@ -63,15 +64,15 @@ const MapChart = ({ setTooltipContent, setCountry }) => {
                   style={{
                     hover: {
                       outline: "#000000",
-                      outlineWidth: "3pt"
-                    }
+                      outlineWidth: "3pt",
+                    },
                   }}
                 />
               );
             })
           }
         </Geographies>
-      }
+      )}
     </ComposableMap>
   );
 };

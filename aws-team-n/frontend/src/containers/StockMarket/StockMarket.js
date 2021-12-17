@@ -1,10 +1,10 @@
-import React, {Component} from "react";
-import CountryCompare from './CountryCompare';
-import Chart from 'chart.js/auto';
-import Predict from './Predict';
-import KospiSector from './KospiSector';
+import React, { Component } from "react";
+import CountryCompare from "./CountryCompare";
+import Chart from "chart.js/auto";
+import Predict from "./Predict";
+import KospiSector from "./KospiSector";
 import WorldRecover from "./WorldRecover";
-import './StockMarket.css';
+import "./StockMarket.css";
 
 class StockMarket extends Component{
     render(){

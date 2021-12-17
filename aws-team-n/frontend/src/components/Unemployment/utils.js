@@ -1,24 +1,12 @@
-const ONE_YEAR = 365 * 24 * 60 * 60 * 1000;
-const START_DATE = 1577836800; // 2020/01/01
-const NUM = 50;
-
 /**
  * @param {*} timestamp
  * @returns Date string in "Month YYY" format
  */
-export const formatDate = (timestamp) => {
+export const formatDate = (timestamp, showMonth = true) => {
   return new Date(timestamp).toLocaleDateString("en-US", {
-    month: "short",
+    month: showMonth ? "short" : undefined,
     year: "numeric",
   });
-};
-
-/**
- * Generate random test data with n points between range 0~50
- */
-export const generateRandomData = () => {
-  const dates = [...Array(NUM)].map((item, i) => START_DATE + i * ONE_YEAR);
-  return [...Array(NUM)].map((item, i) => [dates[i], Math.random() * NUM]);
 };
 
 /**
@@ -38,7 +26,7 @@ const getMonthFromQuarter = (i) => {
   });
 };
 
-const getTimestampFromDate = (dateStr) => {
+export const getTimestampFromDate = (dateStr) => {
   const pos = dateStr.indexOf("Q");
 
   if (pos === -1) {
@@ -55,17 +43,18 @@ const getTimestampFromDate = (dateStr) => {
  */
 export const parseChartData = (data) => {
   return data.map((item) => {
-    const chartData = item.data.map((dataItem) => {
+    const chartData = item.rates.map((dataItem, i) => {
       const timestamp = getTimestampFromDate(dataItem.time);
-      return [timestamp, parseFloat(dataItem.value)];
+      // use moving average values and round off to two decimal places to smoothen data
+      return [timestamp, +parseFloat(dataItem.moving_avg).toFixed(2)];
     });
 
     return {
       name: item.location,
       data: chartData,
-      // type: "area",
-      lineWidth: 2,
+      type: "spline",
       fillColor: "transparent",
+      lineWidth: 2,
     };
   });
 };
@@ -74,18 +63,19 @@ export const parseChartData = (data) => {
  * Generate plotlines options array from given plotline data
  */
 export const parsePlotLines = (plotLines) => {
-  return plotLines.map((item) => {
+  if (!plotLines) return null;
+
+  const plotBands = plotLines.map((item) => {
     const timestamp = Date.parse(item.date);
     return {
-      ////
-      color: "orange",
+      color: "#FFE5B4",
       value: timestamp,
-      width: 2,
+      width: 5,
       dashStyle: "solid",
       label: {
         text: `${item.name}<br/>${formatDate(timestamp)}`,
         x: 0,
-        y: -10,
+        y: -25,
         useHTML: true,
         textAlign: "center",
         rotation: 0,
@@ -111,4 +101,28 @@ export const parsePlotLines = (plotLines) => {
       zIndex: 1,
     };
   });
+
+  const covidStartDate = Date.parse("2019-11-17");
+  // add covid start data
+  plotBands.push({
+    color: "gray",
+    value: covidStartDate,
+    width: 1.5,
+    dashStyle: "dash",
+    label: {
+      text: `COVID-19 Pandemic<br/>(17 November 2019)`,
+      y: 15,
+      useHTML: true,
+      textAlign: "right",
+      rotation: 0,
+      style: {
+        color: "gray",
+        fontSize: "10px",
+        fontWeight: "bold",
+        textAlign: "right",
+      },
+    },
+    zIndex: 1,
+  });
+  return plotBands;
 };
