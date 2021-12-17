@@ -4,23 +4,21 @@ import Europe from "../../components/StockMarket/Continent/Europe";
 import NAmerica from "../../components/StockMarket/Continent/NAmerica";
 import Oceania from "../../components/StockMarket/Continent/Oceania";
 import SAmerica from "../../components/StockMarket/Continent/SAmerica";
-import './CountryCompare.css';
+import "./CountryCompare.css";
 
 const CountryCompare = () => {
-    return(
-        <div className="CountryCompare" id="section">
-            <div className="title">
-                World Stock Index
-            </div>
-            <div className="graph">
-                <Africa />
-                <Asia />
-                <Oceania />
-                <NAmerica />
-                <SAmerica />
-                <Europe />
-            </div>
-        </div>
-    )
+  return (
+    <div className="CountryCompare" id="section">
+      <div className="title">World Stock Index</div>
+      <div className="graph">
+        <Africa />
+        <Asia />
+        <Oceania />
+        <NAmerica />
+        <SAmerica />
+        <Europe />
+      </div>
+    </div>
+  );
 };
 export default CountryCompare;

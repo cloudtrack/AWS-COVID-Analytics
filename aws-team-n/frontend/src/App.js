@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-
+import React from "react";
 import MainPage from "./containers/Mainpage/Mainpage";
 import AirPollution from "./containers/AirPollution/AirPollution";
 import NavBar from "./components/NavBar/NavBar";

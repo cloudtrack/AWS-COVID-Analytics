@@ -1,0 +1,128 @@
+.container {
+  justify-content: flex-start;
+}
+
+.header-title {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.subtitle {
+  text-align: left;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.prompt {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.description-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.description {
+  margin-left: 10px;
+  margin-right: 10px;
+  text-align: left;
+  font-size: 12px;
+  color: gray;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.row {
+  width: 50%;
+}
+
+tr {
+  color: gray;
+  font-size: 12px;
+}
+
+td {
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-self: flex-start;
+  align-content: flex-start;
+  text-align: left;
+}
+
+#result {
+  text-align: right;
+  min-height: 2em;
+}
+
+#table-sparkline {
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+th {
+  font-weight: bold;
+  text-align: left;
+}
+
+td,
+th {
+  padding: 5px;
+  border-bottom: 1px solid silver;
+  height: 20px;
+}
+
+thead th {
+  border-top: 2px solid gray;
+  border-bottom: 2px solid gray;
+}
+
+.highcharts-tooltip > span {
+  background: white;
+  border: 1px solid silver;
+  border-radius: 3px;
+  box-shadow: 1px 1px 2px #888;
+  padding: 8px;
+}
+
+/* youth unemployment legend */
+
+.legend-container {
+  display: flex;
+  justify-content: flex-end;
+}
+.legend {
+  display: flex;
+  width: 25%;
+  margin-bottom: 10px;
+}
+.legend li {
+  color: gray;
+  float: left;
+  font-weight: 500;
+  font-size: 12px;
+  text-align: left;
+}
+.legend span {
+  float: left;
+  height: 12px;
+  width: 12px;
+  margin: 2px;
+  margin-right: 10px;
+  text-align: left;
+}
+/* your colors */
+.legend .women {
+  background-color: rgba(255, 99, 132, 0.5);
+  border: 1px solid;
+  border-color: rgba(255, 99, 132, 1);
+}
+.legend .men {
+  background-color: rgba(54, 162, 235, 0.5);
+  border: 1px solid;
+  border-color: rgba(75, 192, 192, 1);
+}
