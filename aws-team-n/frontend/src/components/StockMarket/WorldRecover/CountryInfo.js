@@ -64,7 +64,7 @@ const CountryInfo = ({ country }) => {
               240-days-average, also known as a 'dead cross'.
             </p>
             <p className="info-detail">
-              * 'Start of fall date' is the date 5-days-average has gone above
+              * 'End of fall date' is the date 5-days-average has gone above
               240-days-average, also known as a 'golden cross'.{" "}
             </p>
           </div>
